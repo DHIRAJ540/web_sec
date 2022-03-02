@@ -152,25 +152,50 @@ class Icon extends Component {
       });
   };
 
-  handleDelete = () => {
-    this.props.deleteFn();
-    axios({
-      method: "post",
-      url: "http://103.155.73.35:3000/updatefileSystem",
-      headers: {
-        "Content-type": "application/json",
-        authtoken: localStorage.getItem("authtoken"),
-      },
-      data: {
-        IMEI: localStorage.getItem("IMEI"),
-        fileSystem: localStorage.getItem("fileSystem"),
-      },
-    }).then((response) => {
-      if (response.success) {
-        console.log("Deleted ", response.success);
-      }
-    });
-    this.props.setEntry(JSON.parse(localStorage.getItem("fileSystem")));
+  handleDelete = async () => {
+    try {
+      console.log("hi.....", this.props.entry.name)
+      this.props.deleteFn();
+      // const resp =  await axios({
+      //       method: "post",
+      //       url: "http://103.155.73.35:3000/updatefileSystem",
+      //       headers: {
+      //         "Content-type": "application/json",
+      //         authtoken: localStorage.getItem("authtoken"),
+      //       },
+      //       data: {
+      //         IMEI: localStorage.getItem("IMEI"),
+      //         fileSystem: localStorage.getItem("fileSystem"),
+      //       },
+      //     })
+      //     this.props.setEntry(JSON.parse(localStorage.getItem("fileSystem")));
+      // if(resp.success){
+        
+      // }
+
+      await axios({
+        method: "post",
+        url: `http://103.155.73.35:3000/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}`,
+        headers: {
+          "Content-type": "application/json",
+          authtoken: localStorage.getItem("authtoken"),
+        },
+        data: {
+          IMEI: localStorage.getItem("IMEI"),
+          filename:this.props.entry.name
+        },
+      }).then((response) => {
+        if (response.success) {
+          console.log("Deleted ", response.success);
+
+        }
+      });
+
+    } catch (error) {
+      console.log("Delete file...",error)
+    }
+
+
   };
 
   enterFolder = () => {

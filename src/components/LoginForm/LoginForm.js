@@ -249,7 +249,7 @@ function LoginForm(props) {
 
       console.log("signup resp...", resp)
 
-      if(resp.status === 200){
+      if(resp.data.status === 200){
         
         console.log("Signed up successfully")
         console.log("file sytem...", resp.data.filesys)
@@ -367,12 +367,27 @@ function LoginForm(props) {
               props.updateTitle("Home");
               props.history.push("/");
 
-      } else {
+      } 
+        if(resp.data.status === 409) {
+          alert("User already exists. try to login or register with another email.")
+          throw("User already exists. try to login or register with another email.")
+        } else if(resp.data.status === 401){
+          alert("User not verified. Check your email for verification.")
+          throw("User not verified. Check your email for verification.")
+
+        }
+      
+      else {
         console.log("TRYING AGAIN<<<<<<<<<<<<<<");
       }
            
     } catch (error) {
       console.log("signup error...", error)
+      // if(resp.status === 409) {
+      //   alert("User already exists. try to login or register with another email.")
+      // } else if(resp.status === 401){
+      //   alert("User not verified. Check your email for verification.")
+      // }
     }
   }
 
@@ -520,7 +535,11 @@ function LoginForm(props) {
               props.updateTitle("Home");
               props.history.push("/");
 
-      } else {
+      } else if(resp.status === 206){
+        alert(resp.data.message)
+        throw(resp.data.message)
+      }
+       else {
         console.log("TRYING AGAIN<<<<<<<<<<<<<<");
       }
 
