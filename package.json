@@ -27,6 +27,8 @@
     "react-google-charts": "^3.0.15",
     "react-helmet": "^5.2.1",
     "react-lottie": "^1.2.3",
+    "react-native-virgil-crypto": "^0.6.1",
+    "react-native-web": "^0.17.6",
     "react-qr-code": "^1.1.1",
     "react-redux": "^7.0.1",
     "react-router-dom": "^5.1.2",

@@ -19,6 +19,7 @@ import md5 from "md5";
 
 // New
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
+import { virgilCrypto } from "react-native-virgil-crypto"
 
 const StyledMenu = withStyles({
   paper: {
@@ -113,7 +114,16 @@ export default function CustomizedMenus(props) {
     formData.append("IMEI", localStorage.getItem("IMEI"));
     formData.append("name", "avatar");
 
-    formData.append("filedata", document[0]);
+    // const encryptedPath = virgilCrypto.encryptFile(
+    //   document[0],
+    //   "secret"
+    // )
+
+    formData.append("filedata", document[0]  );
+
+
+
+    console.log("upload file data...", document[0])
     let string;
     string = {};
     string[document[0].name] = {
