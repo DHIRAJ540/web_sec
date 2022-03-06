@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./Card.css";
 import { connect } from "react-redux";
 import md5 from "md5";
@@ -12,42 +12,106 @@ import Icon from "../../components/Icon";
 import Add from "../../components/Add";
 import FolderIcon from "../../assets/img/folder-icon.png";
 // import FolderIcon from "../../assets/img/folder.png";
-class Card extends Component {
-  componentDidMount() {
-    console.log(this.props.fileSystem[md5("/SarvvidBox" + FOLDER)]);
-    if (
-      !Object.keys(this.props.fileSystem).includes(
-        md5(this.props.location.pathname + FOLDER)
-      )
-    ) {
-      this.props.history.push("/");
-    }
-    console.log(this.props.entry);
-  }
-  render() {
-    return (
-      <div className="midPane_cards">
-        <SEO
-          url={this.props.match.url}
-          title={this.props.match.url}
-          image={FolderIcon}
-          description={this.props.match.url}
-        />
+// class Card extends Component {
+//   componentDidMount() {
+//     console.log(this.props.fileSystem[md5("/SarvvidBox" + FOLDER)]);
+//     console.log("Entry...", this.props.entry)
+//     if (
+//       !Object.keys(this.props.fileSystem).includes(
+//         md5(this.props.location.pathname + FOLDER)
+//       )
+//     ) {
+//       this.props.history.push("/");
+//     }
+//     console.log(this.props.entry);
+//   }
 
-        {this.props.entry.map((entry, _) => (
-          <Icon
-            entry={entry}
-            index={_}
-            key={`${entry.path}_${entry.type}`}
-            deleteFn={() => {
-              this.props.deleteEntry(md5(entry.path + entry.type));
-            }}
-            setEntry={(val) => this.props.setEntry(val)}
-          />
-        ))}
-      </div>
-    );
-  }
+//   componentDidUpdate() {
+//     console.log(this.props.fileSystem[md5("/SarvvidBox" + FOLDER)]);
+//     console.log("Entry...", this.props.entry)
+//     if (
+//       !Object.keys(this.props.fileSystem).includes(
+//         md5(this.props.location.pathname + FOLDER)
+//       )
+//     ) {
+//       this.props.history.push("/");
+//     }
+//     console.log(this.props.entry);
+//   }
+
+//   render() {
+//     return (
+      
+//         this.props.entry[0] ? <div className="midPane_cards">
+//         <SEO
+//           url={this.props.match.url}
+//           title={this.props.match.url}
+//           image={FolderIcon}
+//           description={this.props.match.url}
+//         />
+
+//         {this.props.entry.map((entry, _) => (
+//           <Icon
+//             entry={entry}
+//             index={_}
+//             key={`${entry.path}_${entry.type}`}
+//             deleteFn={() => {
+//               this.props.deleteEntry(md5(entry.path + entry.type));
+//             }}
+//             setEntry={(val) => this.props.setEntry(val)}
+//           />
+//         ))}
+//       </div> : <div>hiii</div>
+      
+//     );
+//   }
+// }
+
+const Card = (props) => {
+
+  const [entryState, setEntryState] = useState(props.entry)
+
+  useEffect(() => {
+      console.log(props.fileSystem[md5("/SarvvidBox" + FOLDER)]);
+      console.log("Entry...", props.entry)
+      if (
+        !Object.keys(props.fileSystem).includes(
+          md5(props.location.pathname + FOLDER)
+        )
+      ) {
+        props.history.push("/");
+      }
+      console.log(props.entry);
+  }, [entryState])
+
+  // setTimeout(() => {
+  //   window.location.reload()
+  // }, 2000)
+
+  return (
+      
+            props.entry[0] ? <div className="midPane_cards">
+            <SEO
+              url={props.match.url}
+              title={props.match.url}
+              image={FolderIcon}
+              description={props.match.url}
+            />
+    
+            {props.entry.map((entry, _) => (
+              <Icon
+                entry={entry}
+                index={_}
+                key={`${entry.path}_${entry.type}`}
+                deleteFn={() => {
+                  this.props.deleteEntry(md5(entry.path + entry.type));
+                }}
+                setEntry={(val) => this.props.setEntry(val)}
+              />
+            ))}
+          </div> : <div>hiii</div>
+          
+        );
 }
 
 const mapStateToProps = (state, ownProps) => {

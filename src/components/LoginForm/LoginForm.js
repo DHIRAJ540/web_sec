@@ -538,6 +538,10 @@ function LoginForm(props) {
       } else if(resp.status === 206){
         alert(resp.data.message)
         throw(resp.data.message)
+      } else if(resp.data.code === 401){
+        alert(resp.data.message)
+        throw(resp.data.message)
+
       }
        else {
         console.log("TRYING AGAIN<<<<<<<<<<<<<<");
