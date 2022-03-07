@@ -146,7 +146,7 @@ export default function CustomizedMenus(props) {
     console.log("fsdfsdddddddddddddddDDDDDDDD", at);
     axios({
       method: "post",
-      url: `http://103.155.73.35:3000/upload?ping=${localStorage.getItem(
+      url: `https://spicy-penguin-44.loca.lt/upload?ping=${localStorage.getItem(
         "ping"
       )}`,
       headers: {
@@ -231,7 +231,7 @@ export default function CustomizedMenus(props) {
           localStorage.setItem("fileSystem", JSON.stringify(data));
           axios({
             method: "post",
-            url: "http://103.155.73.35:3000/updatefileSystem",
+            url: "https://spicy-penguin-44.loca.lt/updatefileSystem",
             headers: {
               "Content-type": "application/json",
               authtoken: localStorage.getItem("authtoken"),
@@ -259,7 +259,7 @@ export default function CustomizedMenus(props) {
           console.log("updated used value=======>>", val);
           axios({
             method: "post",
-            url: `http://103.155.73.35:3000/updatedata?ping=${localStorage.getItem(
+            url: `https://spicy-penguin-44.loca.lt/updatedata?ping=${localStorage.getItem(
               "ping"
             )}`,
             headers: {
@@ -335,7 +335,7 @@ export default function CustomizedMenus(props) {
     console.log("fsdfsdddddddddddddddDDDDDDDD", at);
     axios({
       method: "post",
-      url: `http://103.155.73.35:3000/upload?ping=${localStorage.getItem(
+      url: `https://spicy-penguin-44.loca.lt/upload?ping=${localStorage.getItem(
         "ping"
       )}`,
       headers: {
@@ -498,7 +498,7 @@ export default function CustomizedMenus(props) {
           localStorage.setItem("fileSystem", JSON.stringify(data));
           axios({
             method: "post",
-            url: "http://103.155.73.35:3000/updatefileSystem",
+            url: "https://spicy-penguin-44.loca.lt/updatefileSystem",
             headers: {
               "Content-type": "application/json",
               authtoken: localStorage.getItem("authtoken"),
@@ -525,7 +525,7 @@ export default function CustomizedMenus(props) {
           console.log("updated used value=======>>", val);
           axios({
             method: "post",
-            url: `http://103.155.73.35:3000/updatedata?ping=${localStorage.getItem(
+            url: `https://spicy-penguin-44.loca.lt/updatedata?ping=${localStorage.getItem(
               "ping"
             )}`,
             headers: {

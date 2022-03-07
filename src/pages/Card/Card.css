@@ -7,6 +7,8 @@
   /* max-width: 57%; */
   flex-wrap: wrap;
   margin-top: 5%;
+  transition: all 300ms ease;
+  
 }
 .midPane_card {
   width: 10%;

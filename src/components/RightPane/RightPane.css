@@ -14,6 +14,7 @@
   cursor: default;
   overflow: visible;
   border-left: 2px solid  rgb(231, 231, 231);
+  transform: all 300ms ease;
 }
 .rightPane_user {
   display: flex;

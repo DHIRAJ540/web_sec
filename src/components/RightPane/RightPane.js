@@ -21,6 +21,7 @@ import Axios from "axios";
 // import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import AccountIcon from "../../assets/img/account.svg"
 import LogoutIcon from "../../assets/img/logout.svg"
+import {useTheme} from "../../contexts/themeContext"
 
 
 const chartOptions = {
@@ -93,6 +94,7 @@ const RightPane = (props) => {
   const classesUpgrade = useUpgradeStyles();
   const current_plan = isNaN(props.b) ? 20 : props.b;
   const fileChange = useSelector((state) => state.fileSystem);
+  const darkTheme = useTheme();
 
 
 
@@ -183,29 +185,37 @@ const RightPane = (props) => {
 
   // New
 
+  let userName = localStorage.getItem("user_name")
+
+  if(userName.length > 12){
+    userName = `${userName.slice(0,11)}...`
+  }
+
+
+
 
   return (
-    <div className="rightPane">
+    <div className="rightPane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
       <div className="rightPane_user">
         <div className="user_info">
           <img src={AccountIcon} alt = "account" />
           <div className="user_details" >
-            <h3>{localStorage.getItem("user_name")}</h3>
-            <h6>{localStorage.getItem("user_number")}</h6>
+            <h3 style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >{userName}</h3>
+            <h6 style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >{localStorage.getItem("user_number")}</h6>
           </div>
         </div>
         <div
           className="user_logout_div"
           onClick={() => handleLogout()}
         >
-          <h3>Logout</h3>
+          <h3 style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Logout</h3>
           <img src={LogoutIcon} alt="logout" />
 
         </div>
       </div>
       <hr />
       <div className="storage_detail">
-        <h2 className="storage_detail_heading">Storage</h2>
+        <h2 className="storage_detail_heading" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Storage</h2>
         <Chart
           width={"100%"}
           height={"250px"}
@@ -219,10 +229,10 @@ const RightPane = (props) => {
           options={chartOptions}
           rootProps={{ "data-testid": "1" }}
         />
-        <p className="storage_total">
+        <p className="storage_total" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >
           {isNaN(props.b) ? "NaN" : props.b + " GB"}
         </p>
-        <p className="storage_detail_desc">
+        <p className="storage_detail_desc" style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >
           {isNaN(props.a) ? "NaN" : props.a} GB of{" "}
           {isNaN(props.b) ? "NaN" : props.b} GB used
         </p>

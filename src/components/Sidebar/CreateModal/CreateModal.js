@@ -71,7 +71,7 @@ const CreateModal = (props) => {
   // };
   for (let key in props.files) {
     uploads.push(
-      <div className="uploadingDiv">
+      <div className="uploadingDiv" key = {key} >  
         <div className="uploadingFileNameDiv">
           <span className="uploadingFileName">{key}</span>
         </div>

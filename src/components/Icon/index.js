@@ -17,8 +17,11 @@ import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import {useTheme} from "../../contexts/themeContext"
+
 class Icon extends Component {
   nodeRef = createRef();
+  
 
   state = {
     visible: false,
@@ -158,7 +161,7 @@ class Icon extends Component {
       this.props.deleteFn();
       // const resp =  await axios({
       //       method: "post",
-      //       url: "http://103.155.73.35:3000/updatefileSystem",
+      //       url: "https://spicy-penguin-44.loca.lt/updatefileSystem",
       //       headers: {
       //         "Content-type": "application/json",
       //         authtoken: localStorage.getItem("authtoken"),
@@ -175,7 +178,7 @@ class Icon extends Component {
 
       await axios({
         method: "post",
-        url: `http://103.155.73.35:3000/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}`,
+        url: `https://spicy-penguin-44.loca.lt/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}`,
         headers: {
           "Content-type": "application/json",
           authtoken: localStorage.getItem("authtoken"),
@@ -209,8 +212,10 @@ class Icon extends Component {
 
     ext = ext.length >= 2 ? ext[ext.length - 1] : "";
 
+
+
     return (
-      <Container ref={this.nodeRef} onClick={() => this.enterFolder()}>
+      <Container ref={this.nodeRef} onClick={() => this.enterFolder()} style = {{background: `${this.darkTheme ? "#121212" : "#fff"}` }} >
         <Logo onClick={() => this.enterFolder()}>
           <Img src={entry.type == FILE ? FileIcon : FolderIcon} />
           {/* {entry.type == FILE ? <span>{`.${ext}`}</span> : ""} */}
@@ -227,7 +232,7 @@ class Icon extends Component {
                   axios
                     .request({
                       method: "get",
-                      url: `http://103.155.73.35:3000/cat?filehash=${
+                      url: `https://spicy-penguin-44.loca.lt/cat?filehash=${
                         entry.name
                       }&IMEI=${localStorage.getItem(
                         "IMEI"

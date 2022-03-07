@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useState} from "react";
 import "./MiddlePane.css";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +7,7 @@ import Card from "./Card/Card";
 import { Route } from 'react-router-dom'; 
 import Navigation from '../components/Navigation'
 import SearchBar from '../components/SearchBar';
+import {useTheme, useThemeUpdate} from "../contexts/themeContext"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,13 +18,34 @@ const useStyles = makeStyles((theme) => ({
   },
 })); 
 const ViewFiles = () => {
+
+  
+  const darkTheme = useTheme();
+  const toggleTheme = useThemeUpdate();
   const classes = useStyles();
+
+
+
+  
+
+  
+
+
   return (
-    <div className="middlePane">
-      <div className="middlePane_searchBar">
-        <SearchBar/>
+    <div className="middlePane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
+      <div className="middlePane_upper">
+        <SearchBar />
+        <div className="theme-toggle" onClick={() => toggleTheme()} >
+        <div className={`theme-outer-container ${!darkTheme ? "light" : ""}`}>
+            <div className="theme-container">
+              <div className="theme-circle">
+                <div className="theme-cloud"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="middlePane_cards">
+      <div className="middlePane_cards" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
         <Navigation />
         <Route path="*" 
         component={Card} 

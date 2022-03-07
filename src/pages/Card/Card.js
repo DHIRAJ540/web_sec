@@ -11,6 +11,8 @@ import { addEntry, deleteEntry, setEntry } from "../../actions/fileSystem";
 import Icon from "../../components/Icon";
 import Add from "../../components/Add";
 import FolderIcon from "../../assets/img/folder-icon.png";
+import {useTheme} from "../../contexts/themeContext"
+
 // import FolderIcon from "../../assets/img/folder.png";
 // class Card extends Component {
 //   componentDidMount() {
@@ -70,6 +72,10 @@ import FolderIcon from "../../assets/img/folder-icon.png";
 const Card = (props) => {
 
   const [entryState, setEntryState] = useState(props.entry)
+  const darkTheme = useTheme();
+
+  
+
 
   useEffect(() => {
       console.log(props.fileSystem[md5("/SarvvidBox" + FOLDER)]);
@@ -82,15 +88,20 @@ const Card = (props) => {
         props.history.push("/");
       }
       console.log(props.entry);
-  }, [entryState])
+
+     
+  }, [entryState, props.entry])
 
   // setTimeout(() => {
   //   window.location.reload()
   // }, 2000)
 
+  
+
+
   return (
       
-            props.entry[0] ? <div className="midPane_cards">
+            props.entry[0] ? <div className="midPane_cards" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
             <SEO
               url={props.match.url}
               title={props.match.url}

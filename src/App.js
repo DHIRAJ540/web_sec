@@ -35,6 +35,8 @@ import generatedummyFileSystem from "./utils/dummyFileSystem";
 import Axios from "axios";
 import CheckOnline from "./components/CheckOnline/CheckOnline";
 
+import {ThemeProvider} from "./contexts/themeContext"
+
 const useStyles = makeStyles(styles);
 const rootEl = document.getElementById("root");
 const store = createStore(
@@ -82,6 +84,9 @@ function App() {
   //   // }
   // };
   useEffect(() => {
+
+    localStorage.setItem("theme", "light")
+
     Axios(
       `https://103.155.73.35:3000/getdata?ping=${localStorage.getItem(
         "ping"
@@ -161,6 +166,7 @@ function App() {
   };
   return (
     <Provider store={store}>
+      <ThemeProvider>
       <Router>
         <HashRouter>
           <Fragment>
@@ -205,6 +211,7 @@ function App() {
           </Fragment>
         </HashRouter>
       </Router>
+      </ThemeProvider>
     </Provider>
   );
 }

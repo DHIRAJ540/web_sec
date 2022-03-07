@@ -190,7 +190,7 @@ function LoginForm(props) {
     try {
       const resp = await axios({
         method: "post",
-        url: "http://103.155.73.35:3000/forgetpassword",
+        url: "https://spicy-penguin-44.loca.lt/forgetpassword",
         data: {
           email: userEmail
         }
@@ -231,7 +231,7 @@ function LoginForm(props) {
 
       const resp = await axios({
                       method: 'post',
-                      url: `http://103.155.73.35:3000/webregister`,
+                      url: `https://spicy-penguin-44.loca.lt/webregister`,
                       headers: {"authtoken": enc}, 
                       data: {
                         email: userEmail,
@@ -243,7 +243,7 @@ function LoginForm(props) {
       
       const msresp = await axios({
         method: "get",
-        url: `http://103.155.73.35:3000/ms?ms=${130}&IMEI=${userId}`})
+        url: `https://spicy-penguin-44.loca.lt/ms?ms=${130}&IMEI=${userId}`})
 
 
 
@@ -304,7 +304,7 @@ function LoginForm(props) {
         }
 
         axios(
-            `http://103.155.73.35:3000/getdata?ping=${localStorage.getItem(
+            `https://spicy-penguin-44.loca.lt/getdata?ping=${localStorage.getItem(
               "ping"
             )}`,
             {
@@ -366,6 +366,7 @@ function LoginForm(props) {
              
               props.updateTitle("Home");
               props.history.push("/");
+              
 
       } 
         if(resp.data.status === 409) {
@@ -399,14 +400,14 @@ function LoginForm(props) {
 
 
     try{
-      console.log("register started...")
+      console.log("login started...")
 
       console.log("user Pass...", userPass)
       console.log("user Mail...", userEmail)
   
       const resp = await axios({
         method: 'post',
-        url: `http://103.155.73.35:3000/weblogin`,
+        url: `https://spicy-penguin-44.loca.lt/weblogin`,
         headers: {"authtoken": enc}, 
         data: {
           email: userEmail,
@@ -472,7 +473,7 @@ function LoginForm(props) {
         }
 
         axios(
-            `http://103.155.73.35:3000/getdata?ping=${localStorage.getItem(
+            `https://spicy-penguin-44.loca.lt/getdata?ping=${localStorage.getItem(
               "ping"
             )}`,
             {
@@ -535,6 +536,9 @@ function LoginForm(props) {
               props.updateTitle("Home");
               props.history.push("/");
 
+              window.location.reload()
+
+
       } else if(resp.status === 206){
         alert(resp.data.message)
         throw(resp.data.message)
@@ -551,6 +555,7 @@ function LoginForm(props) {
 
     } catch(error) {
       console.log("login error...", error)
+      alert("Network error")
     }
 
 
