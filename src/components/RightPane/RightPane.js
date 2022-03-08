@@ -96,6 +96,12 @@ const RightPane = (props) => {
   const fileChange = useSelector((state) => state.fileSystem);
   const darkTheme = useTheme();
 
+  const usedStorage = (parseFloat(localStorage.getItem("filled_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000)
+
+  const unusedStorage = (parseFloat(localStorage.getItem("remaining_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000)
+
+  console.log("usedstorage...", usedStorage)
+  console.log("unusedstorage...", unusedStorage)
 
 
   // useEffect(() => {
@@ -223,8 +229,8 @@ const RightPane = (props) => {
           loader={<div>Loading Chart</div>}
           data={[
             ["Storage Status", "Size"],
-            ["Used", 15],
-            ["Unused", 20],
+            ["Used", usedStorage],
+            ["Unused", unusedStorage],
           ]}
           options={chartOptions}
           rootProps={{ "data-testid": "1" }}

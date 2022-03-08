@@ -115,9 +115,9 @@ const Card = (props) => {
                 index={_}
                 key={`${entry.path}_${entry.type}`}
                 deleteFn={() => {
-                  this.props.deleteEntry(md5(entry.path + entry.type));
+                  props.deleteEntry(md5(entry.path + entry.type));
                 }}
-                setEntry={(val) => this.props.setEntry(val)}
+                setEntry={(val) => props.setEntry(val)}
               />
             ))}
           </div> : <div>hiii</div>

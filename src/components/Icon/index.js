@@ -157,42 +157,55 @@ class Icon extends Component {
 
   handleDelete = async () => {
     try {
-      console.log("hi.....", this.props.entry.name)
+      console.log("hi.....", this.props.entry)
       this.props.deleteFn();
-      // const resp =  await axios({
-      //       method: "post",
-      //       url: "https://spicy-penguin-44.loca.lt/updatefileSystem",
-      //       headers: {
-      //         "Content-type": "application/json",
-      //         authtoken: localStorage.getItem("authtoken"),
-      //       },
-      //       data: {
-      //         IMEI: localStorage.getItem("IMEI"),
-      //         fileSystem: localStorage.getItem("fileSystem"),
-      //       },
-      //     })
-      //     this.props.setEntry(JSON.parse(localStorage.getItem("fileSystem")));
-      // if(resp.success){
-        
-      // }
 
       await axios({
         method: "post",
-        url: `https://spicy-penguin-44.loca.lt/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}`,
+        url: `http://14.102.108.122:3000/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}&filesize=${this.props.entry.size}`,
         headers: {
           "Content-type": "application/json",
           authtoken: localStorage.getItem("authtoken"),
         },
         data: {
           IMEI: localStorage.getItem("IMEI"),
-          filename:this.props.entry.name
+          filename:this.props.entry.name,
+          
         },
       }).then((response) => {
+        console.log("deletefile response....", response)
+
         if (response.success) {
           console.log("Deleted ", response.success);
 
         }
       });
+
+
+      const resp =  await axios({
+            method: "post",
+            url: "http://14.102.108.122:3000/updatefileSystem",
+            headers: {
+              "Content-type": "application/json",
+              authtoken: localStorage.getItem("authtoken"),
+            },
+            data: {
+              IMEI: localStorage.getItem("IMEI"),
+              fileSystem: localStorage.getItem("fileSystem"),
+            },
+          })
+          this.props.setEntry(JSON.parse(localStorage.getItem("fileSystem")));
+      if(resp.success){
+        console.log("file system updated after deletion")
+      }
+
+      console.log("updatefilesystem response....", resp)
+
+      
+
+
+      
+      
 
     } catch (error) {
       console.log("Delete file...",error)
@@ -232,7 +245,7 @@ class Icon extends Component {
                   axios
                     .request({
                       method: "get",
-                      url: `https://spicy-penguin-44.loca.lt/cat?filehash=${
+                      url: `http://14.102.108.122:3000/cat?filehash=${
                         entry.name
                       }&IMEI=${localStorage.getItem(
                         "IMEI"

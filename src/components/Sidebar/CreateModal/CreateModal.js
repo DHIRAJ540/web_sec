@@ -15,6 +15,8 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import createNewGif from "../../../assets/gif/createnew.gif";
 import "./CreateModal.css";
+
+
 // const useCreateNewStyles = makeStyles((theme) => ({
 //   paper: {
 //     position: "relative",
@@ -73,7 +75,7 @@ const CreateModal = (props) => {
     uploads.push(
       <div className="uploadingDiv" key = {key} >  
         <div className="uploadingFileNameDiv">
-          <span className="uploadingFileName">{key}</span>
+          <span className="uploadingFileName" style={{fontSize:"1.2rem"}} >{key}</span>
         </div>
 
         <Box position="relative" display="inline-flex">
@@ -83,6 +85,7 @@ const CreateModal = (props) => {
               (props.files[key].progress * 100) / props.files[key].totalprogress
             }
           />
+          
           <Box
             top={0}
             left={0}
@@ -97,6 +100,7 @@ const CreateModal = (props) => {
               variant="caption"
               component="div"
               color="textSecondary"
+              
             >{`${Math.round(
               (props.files[key].progress * 100) / props.files[key].totalprogress
             )}%`}</Typography>

@@ -190,7 +190,7 @@ function LoginForm(props) {
     try {
       const resp = await axios({
         method: "post",
-        url: "https://spicy-penguin-44.loca.lt/forgetpassword",
+        url: "http://14.102.108.122:3000/forgetpassword",
         data: {
           email: userEmail
         }
@@ -231,7 +231,7 @@ function LoginForm(props) {
 
       const resp = await axios({
                       method: 'post',
-                      url: `https://spicy-penguin-44.loca.lt/webregister`,
+                      url: `http://14.102.108.122:3000/webregister`,
                       headers: {"authtoken": enc}, 
                       data: {
                         email: userEmail,
@@ -243,7 +243,7 @@ function LoginForm(props) {
       
       const msresp = await axios({
         method: "get",
-        url: `https://spicy-penguin-44.loca.lt/ms?ms=${130}&IMEI=${userId}`})
+        url: `http://14.102.108.122:3000/ms?ms=${130}&IMEI=${userId}`})
 
 
 
@@ -259,6 +259,8 @@ function LoginForm(props) {
         localStorage.setItem("ping", 130);
         localStorage.setItem("user_name", resp.data.username);
         localStorage.setItem("user_number", resp.data.phone);
+        localStorage.setItem("filled_per", resp.data.storageFilled)
+        localStorage.setItem("remaining_per", resp.data.storageRemain)
 
         
         const temp = resp.data.data;
@@ -304,7 +306,7 @@ function LoginForm(props) {
         }
 
         axios(
-            `https://spicy-penguin-44.loca.lt/getdata?ping=${localStorage.getItem(
+            `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
               "ping"
             )}`,
             {
@@ -407,7 +409,7 @@ function LoginForm(props) {
   
       const resp = await axios({
         method: 'post',
-        url: `https://spicy-penguin-44.loca.lt/weblogin`,
+        url: `http://14.102.108.122:3000/weblogin`,
         headers: {"authtoken": enc}, 
         data: {
           email: userEmail,
@@ -429,6 +431,8 @@ function LoginForm(props) {
         localStorage.setItem("ping", 130);
         localStorage.setItem("user_name", resp.data.username);
         localStorage.setItem("user_number", resp.data.phone);
+        localStorage.setItem("filled_per", resp.data.storageFilled)
+        localStorage.setItem("remaining_per", resp.data.storageRemain)
         
         const temp = resp.data.data;
 
@@ -473,7 +477,7 @@ function LoginForm(props) {
         }
 
         axios(
-            `https://spicy-penguin-44.loca.lt/getdata?ping=${localStorage.getItem(
+            `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
               "ping"
             )}`,
             {
