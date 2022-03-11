@@ -88,7 +88,7 @@ function App() {
     localStorage.setItem("theme", "light")
 
     Axios(
-      `https://103.155.73.35:3000/getdata?ping=${localStorage.getItem(
+      `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
         "ping"
       )}`,
       {

@@ -15,7 +15,7 @@ import logoutGif from "../../assets/gif/logout.gif";
 import upgradeGif from "../../assets/gif/upgrade.gif";
 import CheckRoundedIcon from "@material-ui/icons/CheckRounded";
 import { useSelector } from "react-redux";
-import Axios from "axios";
+import axios from "axios";
 
 // New
 // import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
@@ -206,6 +206,85 @@ const RightPane = (props) => {
     userName = `${userName.slice(0,11)}...`
   }
 
+  //helper function for displaying rzpay
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
+  async function displayRazorpay(e,price) {
+    setOpenUpgrade(false);
+    e.preventDefault();
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+    if (!res) {
+      alert("razorpay SDK failed to load. Are you online?");
+      return;
+    }
+    var orderData = {
+      amount: price * 100, // rupees in paise
+    }
+    const result = await axios.post("http://14.102.108.122:3000/payment/orders", orderData );
+    if (!result) {
+      alert("Server error, are you online?");
+      return;
+    }
+    const { amount, id: order_id, currency } = result.data;
+
+    const options = {
+      key: "rzp_test_12xfURrtE5J5vm", // Enter the Key ID generated from the Dashboard
+      amount: amount.toString(),
+      currency: currency,
+      name: "Sarvvid AI Incorporated.",
+      description: "SarvvidBox storage upgrade",
+      image: { logo: "https://i.imgur.com/WkCZuRi.webp" },
+      order_id: order_id,
+      handler: async function (response) {
+        const data = {
+          orderCreationId: order_id,
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpaySignature: response.razorpay_signature,
+          amount: price *100
+        };
+
+        const result = await axios.post(
+          "http://14.102.108.122:3000/payment/success",
+          data
+        );
+        if (!result) {
+          console.log(result.data);
+        }
+
+        alert(result.data.msg);
+      },
+      prefill: {
+        name: "Sarvvid AI",
+        email: "support@sarvvidai.com",
+        contact: "9999999999",
+      },
+      notes: {
+        address: "Sarvvid AI Corporate Office",
+      },
+      theme: {
+        color: "#61dafb",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
+
 
 
 
@@ -372,7 +451,7 @@ const RightPane = (props) => {
                       Current Plan
                     </button>
                   ) : (
-                    <button type="button" className="upgrade_plan_button">
+                    <button type="button" className="upgrade_plan_button" onClick={(e) => displayRazorpay(e,210)}>
                       &#8377; 210/month
                     </button>
                   )}
@@ -420,7 +499,7 @@ const RightPane = (props) => {
                       Current Plan
                     </button>
                   ) : (
-                    <button type="button" className="upgrade_plan_button">
+                    <button type="button" className="upgrade_plan_button" onClick={(e) => displayRazorpay(e,530)}>
                       &#8377; 530/month
                     </button>
                   )}
