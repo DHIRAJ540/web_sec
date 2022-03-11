@@ -175,6 +175,9 @@ class Icon extends Component {
       }).then((response) => {
         console.log("deletefile response....", response)
 
+        localStorage.setItem("filled_per", response.data.storageFilled)
+        localStorage.setItem("remaining_per", response.data.storageRemain)
+
         if (response.success) {
           console.log("Deleted ", response.success);
 

@@ -95,13 +95,22 @@ const RightPane = (props) => {
   const current_plan = isNaN(props.b) ? 20 : props.b;
   const fileChange = useSelector((state) => state.fileSystem);
   const darkTheme = useTheme();
+  const [usedStorage, setUsedStorage] = useState(0)
+  const [unusedStorage, setUnusedStorage] = useState(0)
+  const [remainingGB, setRemainingGB] = useState(0)
 
-  const usedStorage = (parseFloat(localStorage.getItem("filled_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000)
 
-  const unusedStorage = (parseFloat(localStorage.getItem("remaining_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000)
+  useEffect(() => {
+    setUsedStorage((parseFloat(localStorage.getItem("filled_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000))
 
-  console.log("usedstorage...", usedStorage)
-  console.log("unusedstorage...", unusedStorage)
+    setUnusedStorage((parseFloat(localStorage.getItem("remaining_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000))
+
+    setRemainingGB((parseFloat(localStorage.getItem("total"))/1000000000)*(parseFloat(localStorage.getItem("remaining_per")/100)).toFixed(4))
+
+    console.log("usedstorage...", usedStorage)
+    console.log("unusedstorage...", unusedStorage)
+    console.log("remainingGB...", remainingGB)
+  })
 
 
   // useEffect(() => {
@@ -236,7 +245,7 @@ const RightPane = (props) => {
           rootProps={{ "data-testid": "1" }}
         />
         <p className="storage_total" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >
-          {isNaN(props.b) ? "NaN" : props.b + " GB"}
+          {isNaN(props.b) ? "NaN" : remainingGB + " GB"}
         </p>
         <p className="storage_detail_desc" style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >
           {isNaN(props.a) ? "NaN" : props.a} GB of{" "}
