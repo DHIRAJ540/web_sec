@@ -574,6 +574,7 @@ export default function CustomizedMenus(props) {
         selectedfiles([]);
       });
   };
+  
   useEffect(() => {
     if (document.length > 0) {
       onFileUpload();
