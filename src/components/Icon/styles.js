@@ -2,13 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 28%;
-  min-width: 15%;
-  max-width: 30%;
+  
   color: #005288;
   padding:.8rem;
   background-color: #fff;
   margin-left: 2%;
-  margin-right: 2%
+  margin-right: 2%;
   border-radius: 10px;
   margin-bottom: 2.5%;
   display:flex;
@@ -17,6 +16,10 @@ export const Container = styled.div`
   &:hover {
     position: relative;
     outline: 2px solid #19b0f7;
+  }
+  @media(max-width:1200px){
+    width: 45%
+
   }
 `;
 // height: 117px;

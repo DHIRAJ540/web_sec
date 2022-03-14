@@ -264,3 +264,11 @@
   font-weight: normal;
   margin-right: 1.2rem;
 }
+
+/* new */
+
+ @media (max-width:1200px) {
+   .logout-text{
+     display: none;
+   }
+}

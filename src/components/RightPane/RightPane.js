@@ -105,11 +105,11 @@ const RightPane = (props) => {
 
     setUnusedStorage((parseFloat(localStorage.getItem("remaining_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000))
 
-    setRemainingGB((parseFloat(localStorage.getItem("total"))/1000000000)*(parseFloat(localStorage.getItem("remaining_per")/100)).toFixed(4))
+    setRemainingGB((parseFloat(localStorage.getItem("total"))/1000000000)*(parseFloat(localStorage.getItem("remaining_per")/100)))
 
     console.log("usedstorage...", usedStorage)
     console.log("unusedstorage...", unusedStorage)
-    console.log("remainingGB...", remainingGB)
+    console.log("remainingGB...", remainingGB.toFixed(2))
   })
 
 
@@ -223,7 +223,7 @@ const RightPane = (props) => {
           className="user_logout_div"
           onClick={() => handleLogout()}
         >
-          <h3 style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Logout</h3>
+          <h3 className="logout-text" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Logout</h3>
           <img src={LogoutIcon} alt="logout" />
 
         </div>
@@ -245,7 +245,7 @@ const RightPane = (props) => {
           rootProps={{ "data-testid": "1" }}
         />
         <p className="storage_total" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >
-          {isNaN(props.b) ? "NaN" : remainingGB + " GB"}
+          {isNaN(props.b) ? "NaN" : remainingGB.toFixed(2) + " GB"}
         </p>
         <p className="storage_detail_desc" style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >
           {isNaN(props.a) ? "NaN" : props.a} GB of{" "}

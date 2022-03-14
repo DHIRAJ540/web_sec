@@ -154,7 +154,7 @@
 
 .login{
   background: radial-gradient(99.45% 314.32% at 0.55% 1.06%, #70DEAC 0%, #11ACFF 100%);
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   /* padding-top: 8rem; */
   display: flex;
@@ -163,6 +163,8 @@
 
   
 }
+
+
 
 .main{
   width: 95%;
@@ -260,7 +262,7 @@ form{
 	align-items: start;
 	justify-content: start;
 	flex-direction: column;
-	padding: 0 50px;
+	padding: 0 0px;
 	width: 100%;
 	text-align: center;
   /* height: 450px; */
@@ -327,6 +329,25 @@ h3 span:hover{
   background: #fff;
   padding: 2rem;
   border-radius: 1rem;
+}
+
+@media (max-width:1400px){
+  .main{
+    display: flex;
+    flex-direction: column;
+    padding-top: 9rem;
+    padding-bottom: 4rem;
+  }
+
+  .forms{
+    width: 90%;
+  }
+}
+
+@media (max-width:768px){
+  .forms{
+    padding: 1rem 1rem;
+  }
 }
 
 
