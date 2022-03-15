@@ -26,7 +26,9 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined';
 import FileUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import {useTheme} from "../../contexts/themeContext"
+import CloseIcon from "@material-ui/icons/CloseRounded"
+import {useTheme, useMenuToggle, useMenuUpdateToggle} from "../../contexts/themeContext"
+
 
 const useFileRequestStyles = makeStyles((theme) => ({
   paper: {
@@ -62,17 +64,23 @@ const Sidebar = ({ fileStructure, ...props }) => {
   const classesFileRequest = useFileRequestStyles();
   const [fileHash, setFileHash] = useState("");
   const darkTheme = useTheme();
+  const toggleMenu = useMenuToggle()
+  const toggleMenuHandler = useMenuUpdateToggle()
+
 
   return (
     <div
-      className="leftContainer"
+      className={`leftContainer ${toggleMenu ? "closed" : ""} `}
       onMouseEnter={() => setSideDrawerToggle(true)}
       onMouseLeave={() => setSideDrawerToggle(true)}
       style = {{background: `${darkTheme ? "#121212" : "#fff"}` }}
     >
-      {true ? (
+      
         <div className="leftPane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
-          <img className="sarvvid_logo" src={sarvvid} alt="Sarvvid AI"></img>
+          <div className="left-header">
+            <img className="sarvvid_logo" src={sarvvid} alt="Sarvvid AI"></img>
+            <CloseIcon onClick = {() => toggleMenuHandler()} />
+          </div>
           <div className="leftPane_new">
             <CustomizedMenus
               btnSize="long"
@@ -135,38 +143,7 @@ const Sidebar = ({ fileStructure, ...props }) => {
           </div>
           
         </div>
-      ) : (
-        <div className="leftPane_short">
-          <img
-            className="sarvvid_logo_short"
-            src={sarvvid}
-            alt="Sarvvid AI"
-          ></img>
-          <div className="leftPane_buttons">
-            <div className="leftPane_buttons_button_short">
-              <i class="fa fa-home" aria-hidden="true"></i>
-            </div>
-
-            <div className="leftPane_buttons_button_short">
-              <i class="fa fa-users" aria-hidden="true"></i>
-            </div>
-            <div className="leftPane_buttons_button_short">
-              <i class="fa fa-upload" aria-hidden="true"></i>
-            </div>
-            <div className="leftPane_buttons_button_short">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div className="leftPane_new_short">
-            <CustomizedMenus
-              btnSize="short"
-              setEntry={(val) => props.setEntry(val)}
-              currentpath={props.match.url}
-              onEnterProgress={() => setSideDrawerToggle(false)}
-            />
-          </div>
-        </div>
-      )}
+      
       <div className="FileRequestModal">
         <Modal
           open={handleFileRequest}

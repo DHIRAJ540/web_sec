@@ -156,33 +156,59 @@ class Icon extends Component {
   };
 
   handleDelete = async () => {
+    console.log("fileEntry...", this.props.entry)
+
     try {
       console.log("hi.....", this.props.entry)
       this.props.deleteFn();
 
-      await axios({
-        method: "post",
-        url: `http://14.102.108.122:3000/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}&filesize=${this.props.entry.size}`,
-        headers: {
-          "Content-type": "application/json",
-          authtoken: localStorage.getItem("authtoken"),
-        },
-        data: {
-          IMEI: localStorage.getItem("IMEI"),
-          filename:this.props.entry.name,
+      // await axios({
+      //   method: "post",
+      //   url: `http://14.102.108.122:3000/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}&filesize=${this.props.entry.size}`,
+      //   headers: {
+      //     "Content-type": "application/json",
+      //     authtoken: localStorage.getItem("authtoken"),
+      //   },
+      //   data: {
+      //     IMEI: localStorage.getItem("IMEI"),
+      //     filename:this.props.entry.name,
           
-        },
-      }).then((response) => {
-        console.log("deletefile response....", response)
+      //   },
+      // }).then((response) => {
+      //   console.log("deletefile response....", response)
 
-        localStorage.setItem("filled_per", response.data.storageFilled)
-        localStorage.setItem("remaining_per", response.data.storageRemain)
+      //   localStorage.setItem("filled_per", response.data.storageFilled)
+      //   localStorage.setItem("remaining_per", response.data.storageRemain)
 
-        if (response.success) {
-          console.log("Deleted ", response.success);
+      //   if (response.success) {
+      //     console.log("Deleted ", response.success);
 
-        }
+      //   }
+      // });
+
+      const obj = {
+        IMEI: localStorage.getItem("IMEI"),
+        filestructure: this.props.entry,
+       
+      }
+
+      console.log("delete file obj...", obj)
+      
+
+      const deleteResp = await axios({
+        method: 'post',
+        url: `http://14.102.108.122:3000/deletefile?IMEI=${localStorage.getItem("IMEI")}&filename=${this.props.entry.name}&filesize=${this.props.entry.size}`,
+        headers: {Accept: "application/json, text/plain, */*",
+                  authtoken: localStorage.getItem("authtoken")}, 
+        data: JSON.stringify(obj)
+        
+
       });
+
+      console.log("deleteResp...", deleteResp)
+
+      localStorage.setItem("filled_per", deleteResp.data.storageFilled)
+      localStorage.setItem("remaining_per", deleteResp.data.storageRemain)
 
 
       const resp =  await axios({

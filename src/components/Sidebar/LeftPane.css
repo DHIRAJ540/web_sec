@@ -1,5 +1,5 @@
 .leftContainer {
-  width: 15%;
+  
   height: 100%;
   text-align: left;
   /* background: #343951; */
@@ -11,6 +11,23 @@
   /* transition-duration: 0.3s; */
   /* overflow: hidden; */
   border-right: 2px solid rgb(231, 231, 231);
+  transition: transform 300ms ease-in-out;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  
+}
+
+.leftContainer.closed{
+  transform: translateX(-100%);
+  
+}
+
+.left-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .leftPane {

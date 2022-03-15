@@ -95,9 +95,12 @@ const RightPane = (props) => {
   const current_plan = isNaN(props.b) ? 20 : props.b;
   const fileChange = useSelector((state) => state.fileSystem);
   const darkTheme = useTheme();
+
   const [usedStorage, setUsedStorage] = useState(0)
   const [unusedStorage, setUnusedStorage] = useState(0)
   const [remainingGB, setRemainingGB] = useState(0)
+  const [totalStorage, setTotalStorage] = useState(0)
+  const [usedStorageGb, setUsedStorageGb] = useState(0)
 
 
   useEffect(() => {
@@ -107,9 +110,15 @@ const RightPane = (props) => {
 
     setRemainingGB((parseFloat(localStorage.getItem("total"))/1000000000)*(parseFloat(localStorage.getItem("remaining_per")/100)))
 
+    setTotalStorage((parseFloat(localStorage.getItem("total"))/1000000000))
+
+    setUsedStorageGb(totalStorage-remainingGB)
+
     console.log("usedstorage...", usedStorage)
     console.log("unusedstorage...", unusedStorage)
     console.log("remainingGB...", remainingGB.toFixed(2))
+    console.log("totalStorage...", totalStorage)
+    console.log("usedStorageGb...", usedStorageGb.toFixed(2))
   })
 
 
@@ -189,12 +198,8 @@ const RightPane = (props) => {
   //   }
   // }
   function handleLogout() {
-    localStorage.removeItem(ACCESS_TOKEN_NAME);
-    localStorage.removeItem("authtoken");
-    localStorage.removeItem("IMEI");
-    localStorage.removeItem("ping");
-    localStorage.removeItem("used");
-    localStorage.removeItem("total");
+    localStorage.clear()
+
     props.history.push("/login");
   }
 
@@ -327,8 +332,7 @@ const RightPane = (props) => {
           {isNaN(props.b) ? "NaN" : remainingGB.toFixed(2) + " GB"}
         </p>
         <p className="storage_detail_desc" style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >
-          {isNaN(props.a) ? "NaN" : props.a} GB of{" "}
-          {isNaN(props.b) ? "NaN" : props.b} GB used
+          {`${usedStorageGb.toFixed(2)} GB of ${totalStorage.toFixed(2)} GB used`}
         </p>
       </div>
       <button className="storage_button" onClick={() => setOpenUpgrade(true)}>
