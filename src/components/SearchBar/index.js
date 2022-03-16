@@ -14,7 +14,7 @@ import "./styles.css"
 
 
 // New
-import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
+import searchIcon from '../../assets/img/search.svg';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import MenuIcon from "@material-ui/icons/MenuRounded"
 import { useMenuToggle, useMenuUpdateToggle } from "../../contexts/themeContext"
@@ -133,7 +133,10 @@ const SearchBar = (props) => {
         <div className={`menu-btn ${toggleBtn ? "" : "opened"}`}  onClick = {() => toggleMenu()} >
           <MenuIcon style = {{fontSize:"2rem"}} />
         </div>
-        <input type="search" label = "Search" placeholder="Search" id="outlined-search" className={`searchBar_text ${toggleBtn ? "" : "opened"}`} onChange={(e) => {setTerm(e.target.value.toLowerCase())}} />
+        <div className="search-section">
+          <img src={searchIcon} alt="search" />
+          <input  type="search" label = "Search" placeholder="Search" id="outlined-search" className={`searchBar_text ${toggleBtn ? "" : "opened"}`} onChange={(e) => {setTerm(e.target.value.toLowerCase())}} />
+        </div>
       </form>
       {term.length > 0 ? (
         <Container style={{width: "60%"}} >

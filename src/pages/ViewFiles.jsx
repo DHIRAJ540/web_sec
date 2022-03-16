@@ -9,6 +9,10 @@ import Navigation from '../components/Navigation'
 import SearchBar from '../components/SearchBar';
 import {useTheme, useThemeUpdate, useMenuToggle} from "../contexts/themeContext"
 
+// New
+import moonIcon from '../assets/img/moon.svg'
+import sunIcon from "../assets/img/sun.svg"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -36,13 +40,10 @@ const ViewFiles = () => {
     <div className={`middlePane ${toggleMenu ? "" : "opened"}`} style = {{background: `${darkTheme ? "#121212" : "#fafafa"}` }} >
       <div className="middlePane_upper">
         <SearchBar />
-        <div className="theme-toggle" onClick={() => toggleTheme()} >
-        <div className={`theme-outer-container ${!darkTheme ? "light" : ""}`}>
-            <div className="theme-container">
-              <div className="theme-circle">
-                <div className="theme-cloud"></div>
-              </div>
-            </div>
+        <div className={`theme-toggle ${darkTheme ? "dark" : ""}`} onClick={() => toggleTheme()} >
+          <div className="theme-btn">
+            <img src={moonIcon} alt="dark" />
+            <img src={sunIcon} alt="light" />
           </div>
         </div>
       </div>

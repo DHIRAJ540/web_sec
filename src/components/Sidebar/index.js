@@ -22,10 +22,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
 // New 
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined';
-import FileUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import homeIcon from '../../assets/img/home.svg';
+import shareIcon from '../../assets/img/share.svg';
+import fileIcon from '../../assets/img/filerequest.svg';
+import binIcon from '../../assets/img/bin.svg';
+import settingsIcon from "../../assets/img/settings.svg"
+import uploadIcon from "../../assets/img/upload.svg"
 import CloseIcon from "@material-ui/icons/CloseRounded"
 import logoutIcon from "../../assets/img/logoutIcon.svg"
 import {useTheme, useMenuToggle, useMenuUpdateToggle} from "../../contexts/themeContext"
@@ -100,27 +102,28 @@ const Sidebar = ({ fileStructure, ...props }) => {
               style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }}
             />
           </div>
+            <div className="nav-items">
             <div
               className="leftPane_buttons_button"
               onMouseEnter={() => setHome(false)}
               onMouseLeave={() => setHome(true)}
-              style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }}
+              style = {{color: `${darkTheme ? "#ccc" : "#121212"}`, opacity:1 }}
             >
-              <Link to="/" className="home_link">
-                <HomeOutlinedIcon style={{paddingLeft:0}}/>
-                <h6 style = {{color: `${darkTheme ? "#fff" : "#121212"}` }} >Home</h6>
+              <Link to="/" className="home_link"  >
+                <img src={homeIcon} alt="" />
+                <h6>Home</h6>
               </Link>
             </div>
-            <div className="leftPane_folders">
+            {/* <div className="leftPane_folders">
               <SideMenu fileStructure={children} />
-            </div>
+            </div> */}
 
             <div
               className="leftPane_buttons_button"
               onMouseEnter={() => setSharedFiles(false)}
               onMouseLeave={() => setSharedFiles(true)}
             >
-              <PeopleOutlineOutlinedIcon/>
+              <img src={shareIcon} alt="" />
               <h6>Shared</h6>
             </div>
 
@@ -130,7 +133,7 @@ const Sidebar = ({ fileStructure, ...props }) => {
               onMouseLeave={() => setFileRequest(true)}
               onClick={() => setHandleFileRequest(true)}
             >
-              <FileUploadOutlinedIcon/>
+              <img src={fileIcon} alt="" />
               <h6>File request</h6>
             </div>
 
@@ -139,9 +142,19 @@ const Sidebar = ({ fileStructure, ...props }) => {
               onMouseEnter={() => setRecycleBin(false)}
               onMouseLeave={() => setRecycleBin(true)}
             >
-              <DeleteOutlineOutlinedIcon/>
+              <img src={binIcon} alt="" />
               <h6>Recycle bin</h6>
 
+            </div>
+            <div
+              className="leftPane_buttons_button"
+              onMouseEnter={() => setRecycleBin(false)}
+              onMouseLeave={() => setRecycleBin(true)}
+            >
+              <img src={settingsIcon} alt="" />
+              <h6>Preferences</h6>
+
+            </div>
             </div>
           </div>
           <div className="logout-section">

@@ -1,8 +1,9 @@
 .button-container{
     background: linear-gradient(#31FFAD, #10ADFE);
-    width: 212px;
-    padding: 6px;
+    width: 206px;
+    padding: 3px;
     border-radius: 100px;
+    
     margin: auto;
 
 }

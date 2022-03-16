@@ -9,3 +9,14 @@
         display: none;
     }
 }
+
+.search-section{
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+}
+
+.search-section img {
+    transform: translateX(100%);
+}

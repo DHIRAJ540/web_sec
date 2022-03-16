@@ -20,6 +20,7 @@ import md5 from "md5";
 
 // New
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
+import uploadIcon from "../../../assets/img/upload.svg"
 import "./styles.css"
 import { virgilCrypto } from "react-native-virgil-crypto"
 
@@ -618,8 +619,9 @@ export default function CustomizedMenus(props) {
             style={{ height: "60px", borderRadius: "60px", outline: "none",
           background:"#fff", display:"flex", alignItems: "center", jusifyContent: "space-between", width:"200px" }}
           >
-            {props.btnSize === "short" ? "" : <span style={{color:"rgb(25,25,25)", fontSize:"16px"}} >Create New&nbsp;</span>}
-            <KeyboardArrowDownRoundedIcon style={{ color: "rgb(25,25,25)", fontSize: "26px" }} />
+            {props.btnSize === "short" ? "" : <span style={{color:"rgb(25,25,25)", fontSize:"16px", marginRight:"1rem"}} >Upload</span>}
+          <img src={uploadIcon} alt="upload" />
+            
           </Button>
         </div>
       )}
