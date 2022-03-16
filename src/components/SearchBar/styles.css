@@ -1,4 +1,11 @@
 .menu-btn{
    transform: translatex(2.5rem);
    cursor: pointer;
+   transition: all 300ms ease-in-out;
+}
+
+@media (min-width:768px) {
+    .menu-btn{
+        display: none;
+    }
 }

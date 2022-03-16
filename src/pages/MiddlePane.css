@@ -1,5 +1,5 @@
 .middlePane {
-  background-color: #ffffff;
+  background-color: #fafafa;
   /* background-color: var(--secondary-color); */
   width: 80%;
   margin-left: 1.5%;
@@ -12,8 +12,10 @@
   scrollbar-width: none;
   display: flex;
   flex-direction: column;  
-  transition:all 300ms ease;
+  transition:all 300ms ease-in-out;
 }
+
+
 .middlePane_searchBar {
   
   width: 90%;
@@ -40,6 +42,11 @@
   background-color: white;
   padding: .4rem .5rem;
   padding-left: 3rem;
+  transition: all 300ms ease-in-out;
+}
+
+.searchBar_text.opened{
+  padding-left: 1.5rem;
 }
 
 .middlePane_cards {
@@ -238,5 +245,14 @@
 @keyframes scaleItUp {
   from {
     transform: scale(0);
+  }
+}
+
+
+/* meida */
+
+@media (min-width:768px) {
+  .middlePane{
+    padding-left: 340px;
   }
 }

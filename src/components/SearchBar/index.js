@@ -113,8 +113,9 @@ const SearchBar = (props) => {
   const [mode, setMode] = useState(LOCAL)
   const [data, setData] = useState(null)
 
-  // const useMenuToggle1 = useMenuToggle()
+  const toggleBtn = useMenuToggle()
   const toggleMenu = useMenuUpdateToggle()
+
 
 
   useEffect(() => {
@@ -129,10 +130,10 @@ const SearchBar = (props) => {
   return(
     <div className="middlePane_searchBar" ref = {_ref} >
       <form  className="search_bar" noValidate autoComplete="off" style={{height: "100%"}} >
-        <div className="menu-btn" onClick = {() => toggleMenu()} >
+        <div className={`menu-btn ${toggleBtn ? "" : "opened"}`}  onClick = {() => toggleMenu()} >
           <MenuIcon style = {{fontSize:"2rem"}} />
         </div>
-        <input type="search" label = "Search" placeholder="Search" id="outlined-search" className="searchBar_text" onChange={(e) => {setTerm(e.target.value.toLowerCase())}} />
+        <input type="search" label = "Search" placeholder="Search" id="outlined-search" className={`searchBar_text ${toggleBtn ? "" : "opened"}`} onChange={(e) => {setTerm(e.target.value.toLowerCase())}} />
       </form>
       {term.length > 0 ? (
         <Container style={{width: "60%"}} >

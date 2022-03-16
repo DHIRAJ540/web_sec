@@ -10,7 +10,7 @@
   cursor: default;
   /* transition-duration: 0.3s; */
   /* overflow: hidden; */
-  border-right: 2px solid rgb(231, 231, 231);
+ 
   transition: transform 300ms ease-in-out;
   position: fixed;
   left: 0;
@@ -19,21 +19,20 @@
   
 }
 
-.leftContainer.closed{
-  transform: translateX(-100%);
-  
-}
+
 
 .left-header{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 2rem;
+  padding: 0 5%;
 }
 
 .leftPane {
   width: 100%;
   /* position: absolute; */
-  height: 100%;
+  height: 80%;
   text-align: left;
   /* border: 1px solid black; */
   /* background: #343951; */
@@ -47,6 +46,9 @@
   color: black;
   cursor: default;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   /* display: flex;
   flex-direction: column;
   justify-content: space-around; */
@@ -54,12 +56,18 @@
   /* overflow: hidden; */
 }
 .leftPane_folders {
+  
   max-height: 150px;
   /* height: 150px; */
   overflow: scroll;
+  /* background-color: green; */
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: scroll;
+  text-overflow: ellipsis;
   /* overflow-x: hidden; */
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  
 }
 .leftPane_folders::-webkit-scrollbar {
   display: none;
@@ -96,7 +104,7 @@
 }
 .sarvvid_logo {
   width: 80%;
-  margin-top: 2%;
+  
 }
 .sarvvid_logo_short {
   width: 60px;
@@ -104,7 +112,8 @@
 }
 .leftPane_buttons {
   font-size: 18px;
-  margin-top: 2rem;
+  
+  
   /* background: blue; */
 }
 .leftPane_buttons_button {
@@ -140,6 +149,7 @@
   /* position: absolute; */
   /* bottom: 20%; */
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .leftPane_new_short {
   /* position: absolute; */
@@ -238,4 +248,56 @@
 } */
 .FileRequest_button:focus {
   outline: none;
+}
+
+.logout-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  margin: auto;
+  opacity: 0.36;
+  cursor: pointer;
+  
+  transition: all 300ms ease ;
+
+}
+
+.logout-btn:hover{
+  opacity: 1;
+}
+
+
+
+.logout-btn h3{
+  margin: 0;
+  margin-left: 1rem;
+}
+
+.logout-section{
+  width: 80%;
+  margin: 0 auto;
+  border-top: 2px solid #c4c4c4;
+  padding: 2rem;
+}
+
+@media (min-width:768px) {
+  .close-toggle-btn{
+    display: none;
+  }
+
+  
+}
+
+@media (max-width:768px) {
+  .leftContainer{
+    transform: translateX(-100%);
+  }
+
+  .leftContainer.opened{
+    transform: translateX(0%);
+    
+  }
+
+  
 }

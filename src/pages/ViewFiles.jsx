@@ -7,7 +7,7 @@ import Card from "./Card/Card";
 import { Route } from 'react-router-dom'; 
 import Navigation from '../components/Navigation'
 import SearchBar from '../components/SearchBar';
-import {useTheme, useThemeUpdate} from "../contexts/themeContext"
+import {useTheme, useThemeUpdate, useMenuToggle} from "../contexts/themeContext"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +22,7 @@ const ViewFiles = () => {
   
   const darkTheme = useTheme();
   const toggleTheme = useThemeUpdate();
+  const toggleMenu = useMenuToggle()
   const classes = useStyles();
 
 
@@ -32,7 +33,7 @@ const ViewFiles = () => {
 
 
   return (
-    <div className="middlePane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
+    <div className={`middlePane ${toggleMenu ? "" : "opened"}`} style = {{background: `${darkTheme ? "#121212" : "#fafafa"}` }} >
       <div className="middlePane_upper">
         <SearchBar />
         <div className="theme-toggle" onClick={() => toggleTheme()} >

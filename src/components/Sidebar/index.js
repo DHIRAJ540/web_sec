@@ -15,7 +15,7 @@ import { addEntry, deleteEntry, setEntry } from "../../actions/fileSystem";
 import { FOLDER } from "../../utils/constants";
 import md5 from "md5";
 import CustomizedMenus from "./AddBtn/CustomizedMenus";
-import sarvvid from "../../assets/img/logo.png";
+import sarvvid from "../../assets/img/sarvvidLogo.svg";
 import "./LeftPane.css";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,6 +27,7 @@ import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined'
 import FileUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import CloseIcon from "@material-ui/icons/CloseRounded"
+import logoutIcon from "../../assets/img/logoutIcon.svg"
 import {useTheme, useMenuToggle, useMenuUpdateToggle} from "../../contexts/themeContext"
 
 
@@ -70,17 +71,20 @@ const Sidebar = ({ fileStructure, ...props }) => {
 
   return (
     <div
-      className={`leftContainer ${toggleMenu ? "closed" : ""} `}
+      className={`leftContainer ${toggleMenu ? "" : "opened"} `}
       onMouseEnter={() => setSideDrawerToggle(true)}
       onMouseLeave={() => setSideDrawerToggle(true)}
       style = {{background: `${darkTheme ? "#121212" : "#fff"}` }}
     >
       
-        <div className="leftPane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
           <div className="left-header">
             <img className="sarvvid_logo" src={sarvvid} alt="Sarvvid AI"></img>
+            <div className="close-toggle-btn">
             <CloseIcon onClick = {() => toggleMenuHandler()} />
+            </div>
           </div>
+        <div className="leftPane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
+          <div className="leftPane_buttons" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }}>
           <div className="leftPane_new">
             <CustomizedMenus
               btnSize="long"
@@ -96,7 +100,6 @@ const Sidebar = ({ fileStructure, ...props }) => {
               style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }}
             />
           </div>
-          <div className="leftPane_buttons" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }}>
             <div
               className="leftPane_buttons_button"
               onMouseEnter={() => setHome(false)}
@@ -141,7 +144,12 @@ const Sidebar = ({ fileStructure, ...props }) => {
 
             </div>
           </div>
-          
+          <div className="logout-section">
+            <div className="logout-btn">
+                <img src={logoutIcon} alt="logout" />
+                <h3>Logout</h3>
+            </div>
+          </div>
         </div>
       
       <div className="FileRequestModal">

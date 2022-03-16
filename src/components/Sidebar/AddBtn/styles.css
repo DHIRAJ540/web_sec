@@ -1,0 +1,14 @@
+.button-container{
+    background: linear-gradient(#31FFAD, #10ADFE);
+    width: 212px;
+    padding: 6px;
+    border-radius: 100px;
+    margin: auto;
+
+}
+
+.logout-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

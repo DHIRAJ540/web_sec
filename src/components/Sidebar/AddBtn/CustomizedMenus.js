@@ -17,8 +17,10 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import md5 from "md5";
 
+
 // New
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
+import "./styles.css"
 import { virgilCrypto } from "react-native-virgil-crypto"
 
 const StyledMenu = withStyles({
@@ -606,18 +608,20 @@ export default function CustomizedMenus(props) {
           <KeyboardArrowDownRoundedIcon style={{ color: "#00b3ff", fontSize: "30px" }} />
         </Button>
       ) : (
-        <Button
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          
-          
-          onClick={handleClick}
-          style={{ height: "60px", borderRadius: "60px", outline: "none",
-        background:"radial-gradient(99.45% 314.32% at 0.55% 1.06%, #70DEAC 0%, #11ACFF 100%)", display:"flex", alignItems: "center", jusifyContent: "space-between", width:"100%" }}
-        >
-          {props.btnSize === "short" ? "" : <span style={{color:"rgb(25,25,25)", fontSize:"16px"}} >Create New&nbsp;</span>}
-          <KeyboardArrowDownRoundedIcon style={{ color: "rgb(25,25,25)", fontSize: "26px" }} />
-        </Button>
+        <div className="button-container">
+          <Button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            
+            
+            onClick={handleClick}
+            style={{ height: "60px", borderRadius: "60px", outline: "none",
+          background:"#fff", display:"flex", alignItems: "center", jusifyContent: "space-between", width:"200px" }}
+          >
+            {props.btnSize === "short" ? "" : <span style={{color:"rgb(25,25,25)", fontSize:"16px"}} >Create New&nbsp;</span>}
+            <KeyboardArrowDownRoundedIcon style={{ color: "rgb(25,25,25)", fontSize: "26px" }} />
+          </Button>
+        </div>
       )}
       <StyledMenu
         id="customized-menu"
