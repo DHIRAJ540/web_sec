@@ -12,7 +12,10 @@ import QRC from "./QRC/QRC.js";
 import Navbar from "../Navbar/Navbar";
 import logo from "../../assets/img/sarvvid-logo.svg";
 import sarvvidIcon from "../../assets/img/sarvvid_logo_notext.svg";
-import motion from "framer-motion";
+import sarvvidLogo from "../../assets/img/sarvvid-logo.svg";
+import qrCodeIcon from "../../assets/img/qr_icon.svg";
+
+import { motion, useAnimation } from "framer-motion";
 
 // NEW ONES
 
@@ -147,8 +150,6 @@ function LoginForm(props) {
     props.updateTitle("Register");
   };
 
-
-
   // NEW ONES
 
   // ENC key
@@ -200,6 +201,8 @@ function LoginForm(props) {
 
   // States
   const [loginOpened, setLoginOpened] = useState(false);
+  const [splashOpened, setSplashOpened] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
   const [userPh, setUserPh] = useState("");
@@ -568,16 +571,66 @@ function LoginForm(props) {
     }
   };
 
+  const variants = {
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+    rotate: {
+      rotate: "360deg",
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
+  const splashControls = useAnimation();
+  const logoControls = useAnimation();
+  const loginControls = useAnimation();
+  const signupControls = useAnimation();
+  const showQRControls = useAnimation();
+
+  async function sequence() {
+    await splashControls.start("visible");
+    await splashControls.start("rotate");
+    await splashControls.start("hidden");
+    await logoControls.start("visible");
+    setSplashOpened(true);
+    setCurrentScreen("signin");
+  }
+
   return (
     <div className="login">
-     
       <div className="main">
         <div className="forms">
-          <div className="splash">
-            <img className="loginLogo" src={sarvvidIcon} alt="Sarvvid AI" />
+          <div className={`splash ${splashOpened && "hidden"}`}>
+            <motion.img
+              onLoad={sequence}
+              animate={splashControls}
+              className="loginLogo"
+              src={sarvvidIcon}
+              variants={variants}
+              alt="Sarvvid AI"
+            />
           </div>
-          <div className={`form-main hidden ${loginOpened ? "active1" : ""}`}>
-            <div className="form-container sign-up-container">
+          <div
+            className={`form-main ${!splashOpened && "hidden"} ${
+              loginOpened ? "active1" : ""
+            }`}
+          >
+            <div
+              className={`form-container ${
+                !(currentScreen === "signup") && "hidden"
+              } sign-up-container`}
+            >
               <form action="#">
                 <div className="form">
                   <h1>Create Account</h1>
@@ -585,76 +638,139 @@ function LoginForm(props) {
                   <p>Email</p>
                   <input
                     type="email"
-                    placeholder="Email"
                     onChange={(e) => setUserEmail(e.target.value)}
                   />
                   <p>Phone no.</p>
                   <input
                     type="number"
-                    placeholder="Phone no."
                     onChange={(e) => setUserPh(e.target.value)}
                   />
                   <p>Password</p>
                   <input
                     type="password"
-                    placeholder="Password"
                     onChange={(e) => setUserPass(e.target.value)}
                   />
-                  <button type="submit" onClick={(e) => registerWeb(e)}>
-                    Sign Up
-                  </button>
+                  <div className={"center"} style={{ textAlign: "center" }}>
+                    <button type="submit" onClick={(e) => registerWeb(e)}>
+                      Sign Up
+                    </button>
+                  </div>
                   <h3>
                     Already have an account.{" "}
-                    <span onClick={() => setLoginOpened(true)}>Sign in</span>
+                    <span onClick={() => setCurrentScreen("signin")}>
+                      Sign in
+                    </span>
                   </h3>
                 </div>
               </form>
             </div>
-            <div className="form-container sign-in-container">
+
+            <div
+              className={`form-container ${
+                !(currentScreen === "signin") && "hidden"
+              } sign-in-container`}
+            >
               <form action="#">
                 <div className="form">
                   <h1>Sign in</h1>
                   <p>Email</p>
                   <input
                     type="email"
-                    placeholder="Email"
                     onChange={(e) => setUserEmail(e.target.value)}
                   />
                   <p>Password</p>
+
                   <input
                     type="password"
-                    placeholder="Password"
                     onChange={(e) => setUserPass(e.target.value)}
                   />
-                  <a
-                    onClick={() => setModalOpen(true)}
-                    style={{ cursor: "pointer", color: "blue" }}
+
+                  <div
+                    className={"center loginbuttons"}
+                    style={{ textAlign: "center" }}
                   >
-                    Forgot your password?
-                  </a>
-                  <button type="submit" onClick={(e) => loginWeb(e)}>
-                    Sign In
-                  </button>
+                    <button type="submit" onClick={(e) => loginWeb(e)}>
+                      Sign In
+                    </button>
+                    <button
+                      className="btn-md"
+                      onClick={(e) => {
+                        setCurrentScreen("qrscan");
+                        e.preventDefault();
+                      }}
+                    >
+                      Scan QR{" "}
+                      <img
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          margin: "0px 3px",
+                        }}
+                        src={qrCodeIcon}
+                        alt="qr"
+                      />
+                    </button>
+                  </div>
+
+                  <h3 style={{ marginTop: "25px" }}>
+                    Forgot your password?{" "}
+                    <span onClick={() => setModalOpen(true)}>Click here</span>
+                  </h3>
+
                   <h3>
                     New to Sarvvid{" "}
-                    <span onClick={() => setLoginOpened(false)}>Sign up</span>
+                    <span onClick={() => setCurrentScreen("signup")}>
+                      Sign up
+                    </span>
                   </h3>
                 </div>
               </form>
             </div>
-            <div className="form-container qr-scan-container">
-              <QRC
-                updateTitle={props.updateTitle}
-                history={props.history}
-                setA={(val) => {
-                  props.setA(val);
-                }}
-                setB={(val) => {
-                  props.setB(val);
-                }}
-              />
+
+            <div
+              className={`form-container ${
+                !(currentScreen === "qrscan") && "hidden"
+              } qr-scan-container`}
+            >
+              <div className="qrform">
+                <h1 style={{ height: "25px" }}>Scan QR</h1>
+
+                <QRC
+                  updateTitle={props.updateTitle}
+                  history={props.history}
+                  setA={(val) => {
+                    props.setA(val);
+                  }}
+                  setB={(val) => {
+                    props.setB(val);
+                  }}
+                />
+
+                <div
+                  className={"center loginbuttons"}
+                  style={{ textAlign: "center" }}
+                >
+                  <button type="submit" onClick={(e) => {
+                    setCurrentScreen("signin");
+                    e.preventDefault();
+                  }}>
+                    Go Back
+                  </button>
+                </div>
+                <div>
+                  <h3 style={{textAlign:"center"}}>To use SarvvidBox on your computer:</h3>
+                  <ul style={{listStyle: "none"}}>
+                    <li style={{textAlign:"center"}} >Open SarvvidBox on your phone</li>
+                    <li style={{textAlign:"center"}}>Tap Menu or Settings and select SarvvidBox Web</li>
+                    <li style={{textAlign:"center"}}>Point your phone to this screen to capture the code</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+        <div>
+          <img className={`${!splashOpened && "hidden"}`} src={sarvvidLogo} />
         </div>
       </div>
 
