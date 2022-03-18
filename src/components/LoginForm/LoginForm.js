@@ -603,7 +603,7 @@ function LoginForm(props) {
     await splashControls.start("rotate");
     await splashControls.start("hidden");
     await logoControls.start("visible");
-    setSplashOpened(true);
+    setSplashOpened(true); 
     setCurrentScreen("signin");
   }
 

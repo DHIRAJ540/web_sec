@@ -167,6 +167,9 @@
 
 @media (min-width:768px) {
   .middlePane{
-    padding-left: 340px;
+    padding-left: 344px;
+    padding-top: 30px;
+    padding-bottom: 55px;
+    padding-right: 39px;
   }
 }
