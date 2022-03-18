@@ -19,6 +19,7 @@ import axios from "axios";
 
 // New
 // import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+
 import AccountIcon from "../../assets/img/account.svg"
 import LogoutIcon from "../../assets/img/logout.svg"
 import {useTheme} from "../../contexts/themeContext"
@@ -99,31 +100,38 @@ const RightPane = (props) => {
   const fileChange = useSelector((state) => state.fileSystem);
   const darkTheme = useTheme();
 
-  const [usedStorage, setUsedStorage] = useState(0)
-  const [unusedStorage, setUnusedStorage] = useState(0)
-  const [remainingGB, setRemainingGB] = useState(0)
-  const [totalStorage, setTotalStorage] = useState(0)
-  const [usedStorageGb, setUsedStorageGb] = useState(0)
-
+  const [usedStorage, setUsedStorage] = useState(0);
+  const [unusedStorage, setUnusedStorage] = useState(0);
+  const [remainingGB, setRemainingGB] = useState(0);
+  const [totalStorage, setTotalStorage] = useState(0);
+  const [usedStorageGb, setUsedStorageGb] = useState(0);
 
   useEffect(() => {
-    setUsedStorage((parseFloat(localStorage.getItem("filled_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000))
+    setUsedStorage(
+      parseFloat(localStorage.getItem("filled_per") / 100) *
+        (parseFloat(localStorage.getItem("total")) / 1000000000)
+    );
 
-    setUnusedStorage((parseFloat(localStorage.getItem("remaining_per")/100))*(parseFloat(localStorage.getItem("total"))/1000000000))
+    setUnusedStorage(
+      parseFloat(localStorage.getItem("remaining_per") / 100) *
+        (parseFloat(localStorage.getItem("total")) / 1000000000)
+    );
 
-    setRemainingGB((parseFloat(localStorage.getItem("total"))/1000000000)*(parseFloat(localStorage.getItem("remaining_per")/100)))
+    setRemainingGB(
+      (parseFloat(localStorage.getItem("total")) / 1000000000) *
+        parseFloat(localStorage.getItem("remaining_per") / 100)
+    );
 
-    setTotalStorage((parseFloat(localStorage.getItem("total"))/1000000000))
+    setTotalStorage(parseFloat(localStorage.getItem("total")) / 1000000000);
 
-    setUsedStorageGb(totalStorage-remainingGB)
+    setUsedStorageGb(totalStorage - remainingGB);
 
-    console.log("usedstorage...", usedStorage)
-    console.log("unusedstorage...", unusedStorage)
-    console.log("remainingGB...", remainingGB.toFixed(2))
-    console.log("totalStorage...", totalStorage)
-    console.log("usedStorageGb...", usedStorageGb.toFixed(2))
-  })
-
+    console.log("usedstorage...", usedStorage);
+    console.log("unusedstorage...", unusedStorage);
+    console.log("remainingGB...", remainingGB.toFixed(2));
+    console.log("totalStorage...", totalStorage);
+    console.log("usedStorageGb...", usedStorageGb.toFixed(2));
+  });
 
   // useEffect(() => {
   //   Axios(
@@ -201,14 +209,15 @@ const RightPane = (props) => {
   //   }
   // }
   function handleLogout() {
-    localStorage.clear()
+    localStorage.clear();
 
     props.history.push("/login");
   }
 
   // New
 
-  let userName = localStorage.getItem("user_name")
+  let userName = localStorage.getItem("user_name");
+
 
   if(userName.length > 12){
     userName = `${userName.slice(0,18)}...`
@@ -229,7 +238,7 @@ const RightPane = (props) => {
     });
   }
 
-  async function displayRazorpay(e,price) {
+  async function displayRazorpay(e, price) {
     setOpenUpgrade(false);
     e.preventDefault();
     const res = await loadScript(
@@ -241,8 +250,11 @@ const RightPane = (props) => {
     }
     var orderData = {
       amount: price * 100, // rupees in paise
-    }
-    const result = await axios.post("http://14.102.108.122:3000/payment/orders", orderData );
+    };
+    const result = await axios.post(
+      "http://14.102.108.122:3000/payment/orders",
+      orderData
+    );
     if (!result) {
       alert("Server error, are you online?");
       return;
@@ -263,7 +275,7 @@ const RightPane = (props) => {
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
           razorpaySignature: response.razorpay_signature,
-          amount: price *100
+          amount: price * 100,
         };
 
         const result = await axios.post(
@@ -293,19 +305,24 @@ const RightPane = (props) => {
     paymentObject.open();
   }
 
-
-
-
   return (
-    <div className="rightPane" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
+    <div
+      className="rightPane"
+      style={{ background: `${darkTheme ? "#121212" : "#fff"}` }}
+    >
       <div className="rightPane_user">
         <div className="user_info">
-          <img src={AccountIcon} alt = "account" />
-          <div className="user_details" >
-            <h3 style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >{userName}</h3>
-            <h6 style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >{localStorage.getItem("user_number")}</h6>
+          <img src={AccountIcon} alt="account" />
+          <div className="user_details">
+            <h3 style={{ color: `${darkTheme ? "#ccc" : "#121212"}` }}>
+              {userName}
+            </h3>
+            <h6 style={{ color: `${darkTheme ? "#aaa" : "#252525"}` }}>
+              {localStorage.getItem("user_number")}
+            </h6>
           </div>
         </div>
+
 
       </div>
       <hr />
@@ -330,11 +347,19 @@ const RightPane = (props) => {
           options={chartOptions}
           rootProps={{ "data-testid": "1" }}
         />
-        <p className="storage_total" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >
+        <p
+          className="storage_total"
+          style={{ color: `${darkTheme ? "#ccc" : "#121212"}` }}
+        >
           {isNaN(props.b) ? "NaN" : remainingGB.toFixed(2) + " GB"}
         </p>
-        <p className="storage_detail_desc" style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >
-          {`${usedStorageGb.toFixed(2)} GB of ${totalStorage.toFixed(2)} GB used`}
+        <p
+          className="storage_detail_desc"
+          style={{ color: `${darkTheme ? "#aaa" : "#252525"}` }}
+        >
+          {`${usedStorageGb.toFixed(2)} GB of ${totalStorage.toFixed(
+            2
+          )} GB used`}
         </p>
       </div>
       <div className="storage_btn_section">
@@ -504,7 +529,11 @@ const RightPane = (props) => {
                       Current Plan
                     </button>
                   ) : (
-                    <button type="button" className="upgrade_plan_button" onClick={(e) => displayRazorpay(e,210)}>
+                    <button
+                      type="button"
+                      className="upgrade_plan_button"
+                      onClick={(e) => displayRazorpay(e, 210)}
+                    >
                       &#8377; 210/month
                     </button>
                   )}
@@ -552,7 +581,11 @@ const RightPane = (props) => {
                       Current Plan
                     </button>
                   ) : (
-                    <button type="button" className="upgrade_plan_button" onClick={(e) => displayRazorpay(e,530)}>
+                    <button
+                      type="button"
+                      className="upgrade_plan_button"
+                      onClick={(e) => displayRazorpay(e, 530)}
+                    >
                       &#8377; 530/month
                     </button>
                   )}

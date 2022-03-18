@@ -13,7 +13,7 @@
   padding-bottom: 1%;
   cursor: default;
   overflow: visible;
-  border-left: 2px solid  rgb(231, 231, 231);
+  border-left: 2px solid rgb(231, 231, 231);
   transform: all 300ms ease;
 }
 .rightPane_user {
@@ -38,26 +38,25 @@
   /* margin-right: 0.5%; */
 }
 
-.user_info{
+.user_info {
   display: flex;
   align-items: center;
 }
 
-.user_details{
-  
+.user_details {
   margin-left: 1.2rem;
   text-align: left;
 }
 
-.user_details h3{
+.user_details h3 {
   margin: 0;
   padding: 0;
   font-size: 1.3rem;
 }
 
-.user_details h6{
-  margin-top: .2rem;
- 
+.user_details h6 {
+  margin-top: 0.2rem;
+
   font-size: 1rem;
   /* background-color: radial-gradient(99.45% 314.32% at 0.55% 1.06%, #70DEAC 0%, #11ACFF 100%); */
   font-weight: normal;
@@ -129,6 +128,7 @@
 }
 
 .storage_button {
+
   background: #000;
   border: none;
   outline: none;
@@ -290,8 +290,8 @@
   color: #3c4043;
 }
 
-
 /* new */
+
 
 .file_details_section{
   margin-top: 3rem;
@@ -309,6 +309,7 @@
   align-items: center;
 }
 
+
 .file_details{
   text-align: left;
   margin-left: 1rem;
@@ -322,6 +323,8 @@
 .file_details_section h4{
   font-size: 16px;
 }
+
+
 
 .file_details p{
   font-size: 14px;

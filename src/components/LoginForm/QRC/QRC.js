@@ -160,17 +160,8 @@ const QRC = (props) => {
   // }, 3000);
   return (
     <div className="login_QR">
-      <div className="login_QR_instruction">
-        <h3>To use SarvvidBox on your computer:</h3>
-        <br></br>
-        <ol>
-          <li>Open SarvvidBox on your phone</li>
-          <li>Tap Menu or Settings and select SarvvidBox Web</li>
-          <li>Point your phone to this screen to capture the code</li>
-        </ol>
-      </div>
       <div className="login_code">
-        <QRCode value={Hash} size={200} level={"Q"} />
+        <QRCode value={Hash} size={150} level={"Q"} />
       </div>
     </div>
   );

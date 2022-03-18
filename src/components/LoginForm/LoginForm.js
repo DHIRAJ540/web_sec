@@ -10,34 +10,33 @@ import QRCode from "react-qr-code";
 import Backdrop from "@material-ui/core/Backdrop";
 import QRC from "./QRC/QRC.js";
 import Navbar from "../Navbar/Navbar";
-import logo from '../../assets/img/sarvvid-logo.svg'
+import logo from "../../assets/img/sarvvid-logo.svg";
+import sarvvidIcon from "../../assets/img/sarvvid_logo_notext.svg";
+import sarvvidLogo from "../../assets/img/sarvvid-logo.svg";
+import qrCodeIcon from "../../assets/img/qr_icon.svg";
+
+import { motion, useAnimation } from "framer-motion";
 
 // NEW ONES
 
-import { v4 as uuid } from 'uuid';
-import {sha256} from "js-sha256"
+import { v4 as uuid } from "uuid";
+import { sha256 } from "js-sha256";
 import { setEntry } from "../../actions/fileSystem";
 import { Modal } from "@material-ui/core";
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 
 const crypto = require("crypto");
 const platform = require("platform");
 const browser = platform.name + platform.version;
-// console.log(browser);
+
 const QRvalue = JSON.stringify({
   "browser-name": browser,
   timestamp: new Date(),
 });
-// const Hash = JSON.stringify({
-//   hash: crypto.createHash("sha256").update(QRvalue).digest("hex"),
-// });
+
 const Hash = crypto.createHash("sha256").update(QRvalue).digest("hex");
-// console.log(Hash);
+
 function LoginForm(props) {
-
-
-
   const [state, setState] = useState({
     email: "",
     authtoken: "",
@@ -151,34 +150,64 @@ function LoginForm(props) {
     props.updateTitle("Register");
   };
 
-  //EXTREAS
-  // const getData = async() => {
-  //   try{
-  //     const resp = axios.post(`https://api.sarvvid-ai.com/weblogin?email=${userEmail}`)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   // NEW ONES
 
   // ENC key
-  let SCHT = {'0':'92a2', '1':'0f11', '2':'0cf1', '3':'6955', '4':'7779', '5':'e171', '6':'0b6a', '7':'751a', '8':'713f', '9':'c939', 'A':'73c5', 'B':'d832', 'C':'d6d3', 'D':'d289', 'E':'a703', 'F':'603f', 'G':'77d8', 'H':'4fc8', 'I':'85d1', 'J':'de77', 'K':'8788', 'L':'3042', 'M':'48d5', 'N':'1c41', 'O':'c396', 'P':'84f8', 'Q':'f40c', 'R':'c78e', 'S':'3494', 'T':'089f', 'U':'c19a', 'V':'a66f', 'W':'41df', 'X':'a82f', 'Y':'9723', 'Z':'b7c0'};
-  let key = '541DBC699AD251F68C3C55A86C147CFD7C6D2E90BE9E170507B153560C8A65AAAFB2BB839B16F9DED96A41FE15406FEC0116BFDD7BCF7F27B827F2E047E8196DDF03E3A7C6364FD6626041CB8B8133051D969DC67E7ED6EF0944DE6A0BC96443225EE15C60AC49C17EEFA5AF3E54FECB19FD1573BF94C9D5198DB816FC814EF3';
-  let enc = '';
-  let i=0;
-  for(i=0;i<key.length;i++){
-    enc += SCHT[key.slice(i,i+1)]
+  let SCHT = {
+    0: "92a2",
+    1: "0f11",
+    2: "0cf1",
+    3: "6955",
+    4: "7779",
+    5: "e171",
+    6: "0b6a",
+    7: "751a",
+    8: "713f",
+    9: "c939",
+    A: "73c5",
+    B: "d832",
+    C: "d6d3",
+    D: "d289",
+    E: "a703",
+    F: "603f",
+    G: "77d8",
+    H: "4fc8",
+    I: "85d1",
+    J: "de77",
+    K: "8788",
+    L: "3042",
+    M: "48d5",
+    N: "1c41",
+    O: "c396",
+    P: "84f8",
+    Q: "f40c",
+    R: "c78e",
+    S: "3494",
+    T: "089f",
+    U: "c19a",
+    V: "a66f",
+    W: "41df",
+    X: "a82f",
+    Y: "9723",
+    Z: "b7c0",
+  };
+  let key =
+    "541DBC699AD251F68C3C55A86C147CFD7C6D2E90BE9E170507B153560C8A65AAAFB2BB839B16F9DED96A41FE15406FEC0116BFDD7BCF7F27B827F2E047E8196DDF03E3A7C6364FD6626041CB8B8133051D969DC67E7ED6EF0944DE6A0BC96443225EE15C60AC49C17EEFA5AF3E54FECB19FD1573BF94C9D5198DB816FC814EF3";
+  let enc = "";
+  let i = 0;
+  for (i = 0; i < key.length; i++) {
+    enc += SCHT[key.slice(i, i + 1)];
   }
 
   // States
-  const [loginOpened, setLoginOpened] = useState(false)
-  const [userEmail, setUserEmail] = useState("")
-  const [userPass, setUserPass] = useState("")
-  const [userPh, setUserPh] = useState("")
-  const [modalOpen, setModalOpen] = useState(false)
-  const [userCPass, setUserCPass] = useState("")
-  
+  const [loginOpened, setLoginOpened] = useState(false);
+  const [splashOpened, setSplashOpened] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPass, setUserPass] = useState("");
+  const [userPh, setUserPh] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [userCPass, setUserCPass] = useState("");
 
   // Functions
 
@@ -192,81 +221,74 @@ function LoginForm(props) {
         method: "post",
         url: "http://14.102.108.122:3000/forgetpassword",
         data: {
-          email: userEmail
-        }
-      })
+          email: userEmail,
+        },
+      });
 
-      console.log( "forgot pass resp...",  resp)
+      console.log("forgot pass resp...", resp);
 
-      if(resp.data.code == 404){
-        alert(`No user found width this email ${userEmail}`)
-      } else if(resp.data.code == 200){
-        alert(`check you mail to update password at ${userEmail}`)
+      if (resp.data.code == 404) {
+        alert(`No user found width this email ${userEmail}`);
+      } else if (resp.data.code == 200) {
+        alert(`check you mail to update password at ${userEmail}`);
       }
 
-      setModalOpen(false)
-
+      setModalOpen(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  };
 
-
-  }
-  
   // register through sarvvid-web
 
   const registerWeb = async (e) => {
+    e.preventDefault();
 
-    e.preventDefault()
-    
-    try{
-      console.log("register started...")
+    try {
+      console.log("register started...");
 
-      console.log("user Pass...", userPass)
-      console.log("user Mail...", userEmail)
-      console.log("user Phone...", userPh)
+      console.log("user Pass...", userPass);
+      console.log("user Mail...", userEmail);
+      console.log("user Phone...", userPh);
 
-      const userId = sha256(userEmail).slice(0,24);
-      console.log("user ID...", userId)
+      const userId = sha256(userEmail).slice(0, 24);
+      console.log("user ID...", userId);
 
       const resp = await axios({
-                      method: 'post',
-                      url: `http://14.102.108.122:3000/webregister`,
-                      headers: {"authtoken": enc}, 
-                      data: {
-                        email: userEmail,
-                        password: userPass,
-                        phone: userPh,
-                        uniqueID: userId
-                      }
-                    });
-      
+        method: "post",
+        url: `http://14.102.108.122:3000/webregister`,
+        headers: { authtoken: enc },
+        data: {
+          email: userEmail,
+          password: userPass,
+          phone: userPh,
+          uniqueID: userId,
+        },
+      });
+
       const msresp = await axios({
         method: "get",
-        url: `http://14.102.108.122:3000/ms?ms=${130}&IMEI=${userId}`})
+        url: `http://14.102.108.122:3000/ms?ms=${130}&IMEI=${userId}`,
+      });
 
+      console.log("signup resp...", resp);
 
-
-      console.log("signup resp...", resp)
-
-      if(resp.data.status === 200){
-        
-        console.log("Signed up successfully")
-        console.log("file sytem...", resp.data.filesys)
+      if (resp.data.status === 200) {
+        console.log("Signed up successfully");
+        console.log("file sytem...", resp.data.filesys);
 
         localStorage.setItem("IMEI", resp.data.IMEI);
         localStorage.setItem("authtoken", resp.data.authtoken);
         localStorage.setItem("ping", 130);
         localStorage.setItem("user_name", resp.data.username);
         localStorage.setItem("user_number", resp.data.phone);
-        localStorage.setItem("filled_per", resp.data.storageFilled)
-        localStorage.setItem("remaining_per", resp.data.storageRemain)
+        localStorage.setItem("filled_per", resp.data.storageFilled);
+        localStorage.setItem("remaining_per", resp.data.storageRemain);
 
-        
         const temp = resp.data.data;
 
         let new_fileSystem = resp.data.filesys;
-        localStorage.setItem("fileSystem", JSON.stringify(new_fileSystem))
+        localStorage.setItem("fileSystem", JSON.stringify(new_fileSystem));
         var new_data = JSON.parse(localStorage.getItem("fileSystem"));
         var newEntry = {};
         newEntry.name = "SarvvidBox";
@@ -296,7 +318,7 @@ function LoginForm(props) {
             md5("/SarvvidBox/" + temp[i] + "__file__")
           );
         }
-        console.log( "new data...", new_data);
+        console.log("new data...", new_data);
         if (new_fileSystem.length > 2) {
           localStorage.setItem("fileSystem", new_fileSystem);
           // setEntry(JSON.parse(new_fileSystem));
@@ -306,138 +328,130 @@ function LoginForm(props) {
         }
 
         axios(
-            `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
-              "ping"
-            )}`,
-            {
-              method: "POST",
-              headers: {
-                Accept: "application/json, text/plain, */*", // It can be used to overcome cors errors
-                "Content-Type": "application/json",
-                Authtoken: localStorage.getItem("authtoken"),
-              },
-              data: JSON.stringify({
-                IMEI: localStorage.getItem("IMEI"),
-              }),
-            }
-          ).then((res) => {
-                console.log( "getdata...", res);
-                props.setA(
-                  ((res.data.current_storage * res.data.filled_per) / 100).toFixed(
-                    2
-                  )
-                );
-                props.setB(res.data.current_storage);
-                localStorage.setItem(
-                  "used",
-                  isNaN(
-                    (
-                      (res.data.current_storage * res.data.filled_per) /
-                      100
-                    ).toFixed(2)
-                  )
-                    ? 0
-                    : (
-                        (res.data.current_storage * res.data.filled_per) /
-                        100
-                      ).toFixed(9) *
-                        1000 *
-                        1000 *
-                        1000
-                );
-                localStorage.setItem(
-                  "total",
-                  isNaN(res.data.current_storage)
-                    ? 20 * 1000 * 1000 * 1000
-                    : res.data.current_storage * 1000 * 1000 * 1000
-                );
-              })
-              .catch(() => {
-                if (localStorage.getItem("used") == null)
-                  localStorage.setItem("used", 0);
-                if (localStorage.getItem("total") == null)
-                  localStorage.setItem("total", 20 * 1000 * 1000 * 1000);
-              });
+          `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
+            "ping"
+          )}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json, text/plain, */*", // It can be used to overcome cors errors
+              "Content-Type": "application/json",
+              Authtoken: localStorage.getItem("authtoken"),
+            },
+            data: JSON.stringify({
+              IMEI: localStorage.getItem("IMEI"),
+            }),
+          }
+        )
+          .then((res) => {
+            console.log("getdata...", res);
+            props.setA(
+              ((res.data.current_storage * res.data.filled_per) / 100).toFixed(
+                2
+              )
+            );
+            props.setB(res.data.current_storage);
+            localStorage.setItem(
+              "used",
+              isNaN(
+                (
+                  (res.data.current_storage * res.data.filled_per) /
+                  100
+                ).toFixed(2)
+              )
+                ? 0
+                : (
+                    (res.data.current_storage * res.data.filled_per) /
+                    100
+                  ).toFixed(9) *
+                    1000 *
+                    1000 *
+                    1000
+            );
+            localStorage.setItem(
+              "total",
+              isNaN(res.data.current_storage)
+                ? 20 * 1000 * 1000 * 1000
+                : res.data.current_storage * 1000 * 1000 * 1000
+            );
+          })
+          .catch(() => {
+            if (localStorage.getItem("used") == null)
+              localStorage.setItem("used", 0);
+            if (localStorage.getItem("total") == null)
+              localStorage.setItem("total", 20 * 1000 * 1000 * 1000);
+          });
 
-              console.log("dfuysdgfuysdgfuysdgfsdfsdyfsyfds HI I am IN");
-              setState((prevState) => ({
-                ...prevState,
-                successMessage: "Login successful. Redirecting to home page..",
-              }));
-              localStorage.setItem(ACCESS_TOKEN_NAME, 1);
-             
-              props.updateTitle("Home");
-              props.history.push("/");
-              
+        console.log("dfuysdgfuysdgfuysdgfsdfsdyfsyfds HI I am IN");
+        setState((prevState) => ({
+          ...prevState,
+          successMessage: "Login successful. Redirecting to home page..",
+        }));
+        localStorage.setItem(ACCESS_TOKEN_NAME, 1);
 
-      } 
-        if(resp.data.status === 409) {
-          alert("User already exists. try to login or register with another email.")
-          throw("User already exists. try to login or register with another email.")
-        } else if(resp.data.status === 401){
-          alert("User not verified. Check your email for verification.")
-          throw("User not verified. Check your email for verification.")
-
-        }
-      
-      else {
+        props.updateTitle("Home");
+        props.history.push("/");
+      }
+      if (resp.data.status === 409) {
+        alert(
+          "User already exists. try to login or register with another email."
+        );
+        throw "User already exists. try to login or register with another email.";
+      } else if (resp.data.status === 401) {
+        alert("User not verified. Check your email for verification.");
+        throw "User not verified. Check your email for verification.";
+      } else {
         console.log("TRYING AGAIN<<<<<<<<<<<<<<");
       }
-           
     } catch (error) {
-      console.log("signup error...", error)
+      console.log("signup error...", error);
       // if(resp.status === 409) {
       //   alert("User already exists. try to login or register with another email.")
       // } else if(resp.status === 401){
       //   alert("User not verified. Check your email for verification.")
       // }
     }
-  }
+  };
 
   // login through sarvvid-web
 
-  const loginWeb = async(e) => {
+  const loginWeb = async (e) => {
+    e.preventDefault();
 
-    e.preventDefault()
+    try {
+      console.log("login started...");
 
+      console.log("user Pass...", userPass);
+      console.log("user Mail...", userEmail);
 
-    try{
-      console.log("login started...")
-
-      console.log("user Pass...", userPass)
-      console.log("user Mail...", userEmail)
-  
       const resp = await axios({
-        method: 'post',
+        method: "post",
         url: `http://14.102.108.122:3000/weblogin`,
-        headers: {"authtoken": enc}, 
+        headers: { authtoken: enc },
         data: {
           email: userEmail,
           password: userPass,
-        }
+        },
       });
 
-      
+      console.log("login resp...", resp);
 
-      console.log("login resp...", resp)
-
-      if(resp.status === 200){
-        
-        console.log("Logged in successfully")
-        console.log("file sytem...", resp.data.filesys)
+      if (resp.status === 200) {
+        console.log("Logged in successfully");
+        console.log("file sytem...", resp.data.filesys);
 
         localStorage.setItem("IMEI", resp.data.IMEI);
         localStorage.setItem("authtoken", resp.data.authtoken);
         localStorage.setItem("ping", 130);
         localStorage.setItem("user_name", resp.data.username);
         localStorage.setItem("user_number", resp.data.phone);
-        localStorage.setItem("filled_per", resp.data.storageFilled)
-        localStorage.setItem("remaining_per", resp.data.storageRemain)
-        
+        localStorage.setItem("filled_per", resp.data.storageFilled);
+        localStorage.setItem("remaining_per", resp.data.storageRemain);
+
         const temp = resp.data.data;
 
         let new_fileSystem = resp.data.filesys;
-        localStorage.setItem("fileSystem", JSON.stringify(new_fileSystem))
+        localStorage.setItem("fileSystem", JSON.stringify(new_fileSystem));
         var new_data = JSON.parse(localStorage.getItem("fileSystem"));
         var newEntry = {};
         newEntry.name = "SarvvidBox";
@@ -477,174 +491,322 @@ function LoginForm(props) {
         }
 
         axios(
-            `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
-              "ping"
-            )}`,
-            {
-              method: "POST",
-              headers: {
-                Accept: "application/json, text/plain, */*", // It can be used to overcome cors errors
-                "Content-Type": "application/json",
-                Authtoken: localStorage.getItem("authtoken"),
-              },
-              data: JSON.stringify({
-                IMEI: localStorage.getItem("IMEI"),
-              }),
-            }
-          ).then((res) => {
-                console.log( "getdata...", res);
-                props.setA(
-                  ((res.data.current_storage * res.data.filled_per) / 100).toFixed(
-                    2
-                  )
-                );
-                props.setB(res.data.current_storage);
-                localStorage.setItem(
-                  "used",
-                  isNaN(
-                    (
-                      (res.data.current_storage * res.data.filled_per) /
-                      100
-                    ).toFixed(2)
-                  )
-                    ? 0
-                    : (
-                        (res.data.current_storage * res.data.filled_per) /
-                        100
-                      ).toFixed(9) *
-                        1000 *
-                        1000 *
-                        1000
-                );
-                localStorage.setItem(
-                  "total",
-                  isNaN(res.data.current_storage)
-                    ? 20 * 1000 * 1000 * 1000
-                    : res.data.current_storage * 1000 * 1000 * 1000
-                );
-              })
-              .catch(() => {
-                if (localStorage.getItem("used") == null)
-                  localStorage.setItem("used", 0);
-                if (localStorage.getItem("total") == null)
-                  localStorage.setItem("total", 20 * 1000 * 1000 * 1000);
-              });
+          `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
+            "ping"
+          )}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json, text/plain, */*", // It can be used to overcome cors errors
+              "Content-Type": "application/json",
+              Authtoken: localStorage.getItem("authtoken"),
+            },
+            data: JSON.stringify({
+              IMEI: localStorage.getItem("IMEI"),
+            }),
+          }
+        )
+          .then((res) => {
+            console.log("getdata...", res);
+            props.setA(
+              ((res.data.current_storage * res.data.filled_per) / 100).toFixed(
+                2
+              )
+            );
+            props.setB(res.data.current_storage);
+            localStorage.setItem(
+              "used",
+              isNaN(
+                (
+                  (res.data.current_storage * res.data.filled_per) /
+                  100
+                ).toFixed(2)
+              )
+                ? 0
+                : (
+                    (res.data.current_storage * res.data.filled_per) /
+                    100
+                  ).toFixed(9) *
+                    1000 *
+                    1000 *
+                    1000
+            );
+            localStorage.setItem(
+              "total",
+              isNaN(res.data.current_storage)
+                ? 20 * 1000 * 1000 * 1000
+                : res.data.current_storage * 1000 * 1000 * 1000
+            );
+          })
+          .catch(() => {
+            if (localStorage.getItem("used") == null)
+              localStorage.setItem("used", 0);
+            if (localStorage.getItem("total") == null)
+              localStorage.setItem("total", 20 * 1000 * 1000 * 1000);
+          });
 
-              console.log("dfuysdgfuysdgfuysdgfsdfsdyfsyfds HI I am IN");
-              setState((prevState) => ({
-                ...prevState,
-                successMessage: "Login successful. Redirecting to home page..",
-              }));
-              localStorage.setItem(ACCESS_TOKEN_NAME, 1);
-             
-              props.updateTitle("Home");
-              props.history.push("/");
+        console.log("dfuysdgfuysdgfuysdgfsdfsdyfsyfds HI I am IN");
+        setState((prevState) => ({
+          ...prevState,
+          successMessage: "Login successful. Redirecting to home page..",
+        }));
+        localStorage.setItem(ACCESS_TOKEN_NAME, 1);
 
-              window.location.reload()
+        props.updateTitle("Home");
+        props.history.push("/");
 
-
-      } else if(resp.status === 206){
-        alert(resp.data.message)
-        throw(resp.data.message)
-      } else if(resp.data.code === 401){
-        alert(resp.data.message)
-        throw(resp.data.message)
-
-      }
-       else {
+        window.location.reload();
+      } else if (resp.status === 206) {
+        alert(resp.data.message);
+        throw resp.data.message;
+      } else if (resp.data.code === 401) {
+        alert(resp.data.message);
+        throw resp.data.message;
+      } else {
         console.log("TRYING AGAIN<<<<<<<<<<<<<<");
       }
-
-      
-
-    } catch(error) {
-      console.log("login error...", error)
-      alert("Network error")
+    } catch (error) {
+      console.log("login error...", error);
+      alert("Network error");
     }
+  };
 
+  const variants = {
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+    rotate: {
+      rotate: "360deg",
+      transition: {
+        duration: 1,
+      },
+    },
+  };
 
+  const splashControls = useAnimation();
+  const logoControls = useAnimation();
+  const loginControls = useAnimation();
+  const signupControls = useAnimation();
+  const showQRControls = useAnimation();
+
+  async function sequence() {
+    await splashControls.start("visible");
+    await splashControls.start("rotate");
+    await splashControls.start("hidden");
+    await logoControls.start("visible");
+    setSplashOpened(true);
+    setCurrentScreen("signin");
   }
 
-
-
   return (
-  
     <div className="login">
-      
-      <div className="nav">
-         <img src={logo} alt="logo" />
-      </div>
-      {/* <img className="loginLogo" src={sarvvid} alt="Sarvvid AI" /> */}
-        <div className="main">
-            <QRC
-            updateTitle={props.updateTitle}
-            history={props.history}
-            setA={(val) => {
-              props.setA(val);
-            }}
-            setB={(val) => {
-              props.setB(val);
-            }}
-          />
-          <div className="forms">
-              <div className={`form-main ${loginOpened ? "active1" : ""}`}>
-              <div className="form-container sign-up-container">
-                <form action="#">
-                  <div className="form">
+      <div className="main">
+        <div className="forms">
+          <div className={`splash ${splashOpened && "hidden"}`}>
+            <motion.img
+              onLoad={sequence}
+              animate={splashControls}
+              className="loginLogo"
+              src={sarvvidIcon}
+              variants={variants}
+              alt="Sarvvid AI"
+            />
+          </div>
+          <div
+            className={`form-main ${!splashOpened && "hidden"} ${
+              loginOpened ? "active1" : ""
+            }`}
+          >
+            <div
+              className={`form-container ${
+                !(currentScreen === "signup") && "hidden"
+              } sign-up-container`}
+            >
+              <form action="#">
+                <div className="form">
                   <h1>Create Account</h1>
-                    
-                    <p>Email</p>
-                    <input type="email" placeholder="Email" onChange={(e) => setUserEmail(e.target.value)}/>
-                    <p>Phone no.</p>
-                    <input type="number" placeholder="Phone no." onChange={(e) => setUserPh(e.target.value)}/>
-                    <p>Password</p>
-                    <input type="password" placeholder="Password" onChange={(e) => setUserPass(e.target.value)}/>
-                    <button type="submit"  onClick={(e) => registerWeb(e)} >Sign Up</button>
-                    <h3>Already have an account. <span onClick={() => setLoginOpened(true)} >Sign in</span></h3>
+
+                  <p>Email</p>
+                  <input
+                    type="email"
+                    onChange={(e) => setUserEmail(e.target.value)}
+                  />
+                  <p>Phone no.</p>
+                  <input
+                    type="number"
+                    onChange={(e) => setUserPh(e.target.value)}
+                  />
+                  <p>Password</p>
+                  <input
+                    type="password"
+                    onChange={(e) => setUserPass(e.target.value)}
+                  />
+                  <div className={"center"} style={{ textAlign: "center" }}>
+                    <button type="submit" onClick={(e) => registerWeb(e)}>
+                      Sign Up
+                    </button>
+                  </div>
+                  <h3>
+                    Already have an account.{" "}
+                    <span onClick={() => setCurrentScreen("signin")}>
+                      Sign in
+                    </span>
+                  </h3>
+                </div>
+              </form>
+            </div>
+
+            <div
+              className={`form-container ${
+                !(currentScreen === "signin") && "hidden"
+              } sign-in-container`}
+            >
+              <form action="#">
+                <div className="form">
+                  <h1>Sign in</h1>
+                  <p>Email</p>
+                  <input
+                    type="email"
+                    onChange={(e) => setUserEmail(e.target.value)}
+                  />
+                  <p>Password</p>
+
+                  <input
+                    type="password"
+                    onChange={(e) => setUserPass(e.target.value)}
+                  />
+
+                  <div
+                    className={"center loginbuttons"}
+                    style={{ textAlign: "center" }}
+                  >
+                    <button type="submit" onClick={(e) => loginWeb(e)}>
+                      Sign In
+                    </button>
+                    <button
+                      className="btn-md"
+                      onClick={(e) => {
+                        setCurrentScreen("qrscan");
+                        e.preventDefault();
+                      }}
+                    >
+                      Scan QR{" "}
+                      <img
+                        style={{
+                          width: "18px",
+                          height: "18px",
+                          margin: "0px 3px",
+                        }}
+                        src={qrCodeIcon}
+                        alt="qr"
+                      />
+                    </button>
                   </div>
 
-                </form>
-	          </div>
-                    <div className="form-container sign-in-container">
-                        <form action="#">
-                          <div className="form">
-                          <h1>Sign in</h1>
-                          <p>Email</p>
-                          <input type="email" placeholder="Email" onChange={(e) => setUserEmail(e.target.value)}/>
-                          <p>Password</p>
-                          <input type="password" placeholder="Password" onChange={(e) => setUserPass(e.target.value)}/>
-                          <a onClick={() => setModalOpen(true)} style = {{cursor:"pointer", color:"blue"}} >Forgot your password?</a>
-                          <button type="submit" onClick={(e) => loginWeb(e)} >Sign In</button>
-                          <h3>New to Sarvvid <span onClick={() => setLoginOpened(false)} >Sign up</span></h3>
-                          </div>
-                        </form>
-                    </div>
+                  <h3 style={{ marginTop: "25px" }}>
+                    Forgot your password?{" "}
+                    <span onClick={() => setModalOpen(true)}>Click here</span>
+                  </h3>
+
+                  <h3>
+                    New to Sarvvid{" "}
+                    <span onClick={() => setCurrentScreen("signup")}>
+                      Sign up
+                    </span>
+                  </h3>
+                </div>
+              </form>
+            </div>
+
+            <div
+              className={`form-container ${
+                !(currentScreen === "qrscan") && "hidden"
+              } qr-scan-container`}
+            >
+              <div className="qrform">
+                <h1 style={{ height: "25px" }}>Scan QR</h1>
+
+                <QRC
+                  updateTitle={props.updateTitle}
+                  history={props.history}
+                  setA={(val) => {
+                    props.setA(val);
+                  }}
+                  setB={(val) => {
+                    props.setB(val);
+                  }}
+                />
+
+                <div
+                  className={"center loginbuttons"}
+                  style={{ textAlign: "center" }}
+                >
+                  <button type="submit" onClick={(e) => {
+                    setCurrentScreen("signin");
+                    e.preventDefault();
+                  }}>
+                    Go Back
+                  </button>
+                </div>
+                <div>
+                  <h3 style={{textAlign:"center"}}>To use SarvvidBox on your computer:</h3>
+                  <ul style={{listStyle: "none"}}>
+                    <li style={{textAlign:"center"}} >Open SarvvidBox on your phone</li>
+                    <li style={{textAlign:"center"}}>Tap Menu or Settings and select SarvvidBox Web</li>
+                    <li style={{textAlign:"center"}}>Point your phone to this screen to capture the code</li>
+                  </ul>
+                </div>
               </div>
+            </div>
           </div>
-
         </div>
+        <div>
+          <img className={`${!splashOpened && "hidden"}`} src={sarvvidLogo} />
+        </div>
+      </div>
 
-        
-        <Modal
-          open = {modalOpen}
-           aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
-
-            <div className="forgot-modal">
-            <div className="form">
-              <div style = {{display:"flex", alignItems:"center", justifyContent: "space-between", width: "100%"}} >
+      <Modal
+        open={modalOpen}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className="forgot-modal">
+          <div className="form">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
               <h1>Forgot Password</h1>
-              <CloseRoundedIcon style = {{fontSize: "2rem", cursor:"pointer"}}  onClick = {() => setModalOpen(false)} />
-              </div>
-              <p>Email</p>
-              <input type="email" placeholder="Email" onChange={(e) => setUserEmail(e.target.value)}/>
-              <button type="submit" onClick={(e) => forgotPassHandler(e)} >Submit</button>
-              
+              <CloseRoundedIcon
+                style={{ fontSize: "2rem", cursor: "pointer" }}
+                onClick={() => setModalOpen(false)}
+              />
             </div>
-            </div>
-        </Modal>
-      
+            <p>Email</p>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+            <button type="submit" onClick={(e) => forgotPassHandler(e)}>
+              Submit
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
