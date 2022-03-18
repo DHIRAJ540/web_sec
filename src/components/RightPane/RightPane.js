@@ -22,6 +22,9 @@ import axios from "axios";
 import AccountIcon from "../../assets/img/account.svg"
 import LogoutIcon from "../../assets/img/logout.svg"
 import {useTheme} from "../../contexts/themeContext"
+import imgIcon from "../../assets/img/image.svg"
+import otherIcon from "../../assets/img/other.svg"
+import documentIcon from "../../assets/img/document.svg"
 
 
 const chartOptions = {
@@ -208,7 +211,7 @@ const RightPane = (props) => {
   let userName = localStorage.getItem("user_name")
 
   if(userName.length > 12){
-    userName = `${userName.slice(0,11)}...`
+    userName = `${userName.slice(0,18)}...`
   }
 
   //helper function for displaying rzpay
@@ -303,18 +306,17 @@ const RightPane = (props) => {
             <h6 style = {{color: `${darkTheme ? "#aaa" : "#252525"}` }} >{localStorage.getItem("user_number")}</h6>
           </div>
         </div>
-        <div
-          className="user_logout_div"
-          onClick={() => handleLogout()}
-        >
-          <h3 className="logout-text" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Logout</h3>
-          <img src={LogoutIcon} alt="logout" />
 
-        </div>
       </div>
       <hr />
       <div className="storage_detail">
-        <h2 className="storage_detail_heading" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Storage</h2>
+        <div className="storage_detail_header">
+          <div className="storage_detail_header1" >
+            <h2 className="storage_detail_heading" style = {{color: `${darkTheme ? "#ccc" : "#121212"}` }} >Storage</h2>
+            <h3>SarvvidPro plan</h3>
+          </div>
+          <h4>10GB</h4>
+        </div>
         <Chart
           width={"100%"}
           height={"250px"}
@@ -335,9 +337,56 @@ const RightPane = (props) => {
           {`${usedStorageGb.toFixed(2)} GB of ${totalStorage.toFixed(2)} GB used`}
         </p>
       </div>
-      <button className="storage_button" onClick={() => setOpenUpgrade(true)}>
-        Upgrade Storage
-      </button>
+      <div className="storage_btn_section">
+        <button className="storage_button" onClick={() => setOpenUpgrade(true)}>
+          Upgrade plan
+        </button>
+        <p>Upgrade your plan and get 50Gb</p>
+      </div>
+      <div className="file_details_section">
+          <div className="file_detail">
+            <div className="file_detail_name">
+              <div className="file_icon">
+              <img src={documentIcon} alt="documents" />
+              </div>
+              <div className="file_details" style={{marginLeft:"1.4rem"}} >
+                <h4>Documents</h4>
+                <p>214 files</p>
+              </div>
+            </div>
+            <div >
+              <p className="file_detail_size" >2.4GB</p>
+            </div>
+          </div>
+          <div className="file_detail">
+            <div className="file_detail_name">
+              <div className="file_icon">
+              <img src={imgIcon} alt="documents" />
+              </div>
+              <div className="file_details">
+                <h4>Images</h4>
+                <p>526 files</p>
+              </div>
+            </div>
+            <div >
+              <p className="file_detail_size" >5GB</p>
+            </div>
+          </div>          
+          <div className="file_detail">
+            <div className="file_detail_name">
+              <div className="file_icon">
+              <img src={otherIcon} alt="documents" />
+              </div>
+              <div className="file_details">
+                <h4>Other files</h4>
+                <p>65 files</p>
+              </div>
+            </div>
+            <div >
+              <p className="file_detail_size" >4GB</p>
+            </div>
+          </div>
+      </div>
       <div className="Detail-Modal">
         <Modal
           open={openUpgrade}

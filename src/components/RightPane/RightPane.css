@@ -84,8 +84,26 @@
   /* padding-right: 3%; */
   border-radius: 10px;
 }
+
+.storage_detail_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.storage_detail_header h4 {
+  color: #acacac;
+}
+
+.storage_detail_header h3 {
+  color: #acacac;
+  margin-top: .3rem;
+}
+
+
 .storage_detail_heading {
   text-align: left;
+  margin: 0;
 }
 .storage_total {
   /* position: absolute;
@@ -111,15 +129,36 @@
 }
 
 .storage_button {
-  background: radial-gradient(99.45% 314.32% at 0.55% 1.06%, #70DEAC 0%, #11ACFF 100%);
+  background: #000;
   border: none;
   outline: none;
   box-sizing: border-box;
-  color: rgb(26, 26, 26);
+  color: rgb(255, 255, 255);
   font-size: 1.2rem;
-  border-radius: 5rem;
-  width: 80%;
+  font-weight: light;
+  border-radius: 10px;
+  padding: 1.2rem 1rem;
+  cursor: pointer;
+  text-transform: none;
+  margin: 0;
+
 }
+
+.storage_btn_section{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.storage_btn_section p{
+  font-size: .9rem;
+  text-align: left;
+  color: #acacac;
+  margin: 0;
+  margin-left: 1rem;
+}
+
+
 .storage_button:hover {
   background-color: #05e395;
   color: #fff;
@@ -253,22 +292,52 @@
 
 
 /* new */
-.user_logout_div{
+
+.file_details_section{
+  margin-top: 3rem;
+}
+
+.file_detail{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.file_detail_name{
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
-.user_logout_div h3{
-  font-size: 1.3rem;
-  font-weight: normal;
-  margin-right: 1.2rem;
+.file_details{
+  text-align: left;
+  margin-left: 1rem;
 }
 
-/* new */
+.file_details_section h4,
+.file_details_section p{
+  margin: 0;
+}
 
- @media (max-width:1200px) {
-   .logout-text{
-     display: none;
-   }
+.file_details_section h4{
+  font-size: 16px;
+}
+
+.file_details p{
+  font-size: 14px;
+  color: #acacac;
+  margin-top: .2rem;
+}
+
+.file_detail_size{
+  color: #000;
+}
+
+.file_icon{
+  padding: .8rem;
+  background: #fafafa;
+  border: 1px solid #FAFAFA;
+  box-sizing: border-box;
+  box-shadow: 0px 100px 80px rgba(41, 72, 152, 0.05), 0px 64.8148px 46.8519px rgba(41, 72, 152, 0.037963), 0px 38.5185px 25.4815px rgba(41, 72, 152, 0.0303704), 0px 20px 13px rgba(41, 72, 152, 0.025), 0px 8.14815px 6.51852px rgba(41, 72, 152, 0.0196296), 0px 1.85185px 3.14815px rgba(41, 72, 152, 0.012037);
+  border-radius: 10px;
 }
