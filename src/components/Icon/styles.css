@@ -1,0 +1,44 @@
+.card-container{
+    width: 100%;
+    color: #005288;
+    padding: .8rem 0;
+    padding-left: .8rem;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    display:flex;
+    align-items:center;
+    cursor: default;
+}
+
+.name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left:1rem
+}
+
+.file-card{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.file-name{
+    flex: 0.7;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.file-size{
+    flex:0.15;
+    text-align: left;
+}
+
+.file-type{
+    flex:0.15;
+    text-align: left;
+    
+}

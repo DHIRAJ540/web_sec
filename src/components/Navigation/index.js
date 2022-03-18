@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { Container, Path } from './styles';
 import GoBack from './GoBack';
 
+// New
+import "./styles.css"
+
 const showPath = path => {
   const pathArr = path.split('/').filter(p => p);
   const len = pathArr.length;
@@ -29,7 +32,9 @@ const goBack = path => {
 
 const Navigation = props => {
   return (
-    <Container>
+    <div className="nav-container">
+
+      <Container className='path-container' >
       <div
         style={{ marginTop: -2, cursor: 'pointer' }}
         onClick={() => {
@@ -41,12 +46,15 @@ const Navigation = props => {
             
         }}
       >
-        <GoBack
-          fill={props.location.pathname === '/' ? '#acb9c3' : '#545B61'}
-        />
+        <div className="back-btn">
+          <GoBack
+            fill={props.location.pathname === '/' ? '#acb9c3' : '#545B61'}
+          />
+        </div>
       </div>
-      <Path>{showPath(props.location.pathname)}</Path>
+      <Path className='path' >{showPath(props.location.pathname)}</Path>
     </Container>
+    </div>
   );
 };
 

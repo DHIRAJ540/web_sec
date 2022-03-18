@@ -12,6 +12,7 @@ import {useTheme, useThemeUpdate, useMenuToggle} from "../contexts/themeContext"
 // New
 import moonIcon from '../assets/img/moon.svg'
 import sunIcon from "../assets/img/sun.svg"
+import gridIcon from "../assets/img/grid.svg"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +49,20 @@ const ViewFiles = () => {
         </div>
       </div>
       <div className="middlePane_cards" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
-        <Navigation />
+        <div className="midPane-header">
+          <div className="navigation-container" >
+            <h2>Your Files - Secure <span role="img" aria-label="sheep">🔑</span></h2>
+            <Navigation />
+          </div>
+          <div className="layout-toggle">
+            <img src={gridIcon} alt="grid" />
+          </div>
+        </div>
+        <div className="table-header">
+              <p>Name</p>
+              <p>Size</p>
+              <p>Type</p>
+            </div>
         <Route path="*" 
         component={Card} 
         />

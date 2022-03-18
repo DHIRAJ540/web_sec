@@ -1,12 +1,12 @@
 .midPane_cards {
   width: 100%;
-  background: rgb(255, 255, 255);
+  background: #fff;
   /* height: 100%; */
   display: flex;
   flex-direction: row;
   /* max-width: 57%; */
   flex-wrap: wrap;
-  margin-top: 5%;
+  padding-top: 1rem;
   transition: all 300ms ease;
   
 }
@@ -29,3 +29,4 @@
   position: relative;
   box-shadow: 0 0 20px rgb(0, 195, 255);
 }
+

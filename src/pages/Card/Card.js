@@ -101,14 +101,18 @@ const Card = (props) => {
 
   return (
       
-            props.entry[0] ? <div className="midPane_cards" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
+            props.entry[0] ? 
+          <div className="midPane_cards" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
+            
             <SEO
               url={props.match.url}
               title={props.match.url}
               image={FolderIcon}
               description={props.match.url}
+              
             />
-    
+            
+            
             {props.entry.map((entry, _) => (
               <Icon
                 entry={entry}
