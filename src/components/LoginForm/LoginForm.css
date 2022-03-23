@@ -255,11 +255,11 @@
   cursor: pointer;
 }
 
-button:active {
+ .login button:active {
   transform: scale(0.95);
 }
 
-button:focus {
+.login button:focus {
   outline: none;
 }
 

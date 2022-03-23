@@ -13,6 +13,7 @@ import {useTheme, useThemeUpdate, useMenuToggle} from "../contexts/themeContext"
 import moonIcon from '../assets/img/moon.svg'
 import sunIcon from "../assets/img/sun.svg"
 import gridIcon from "../assets/img/grid.svg"
+import gridDarkIcon from "../assets/img/griddark.svg"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +39,7 @@ const ViewFiles = () => {
 
 
   return (
-    <div className={`middlePane ${toggleMenu ? "" : "opened"}`} style = {{background: `${darkTheme ? "#121212" : "#fafafa"}` }} >
+    <div className={`middlePane ${toggleMenu ? "" : "opened"} ${darkTheme ? "dark-theme" : ""}` }  >
       <div className="middlePane_upper">
         <SearchBar />
         <div className={`theme-toggle ${darkTheme ? "dark" : ""}`} onClick={() => toggleTheme()} >
@@ -55,7 +56,7 @@ const ViewFiles = () => {
             <Navigation />
           </div>
           <div className="layout-toggle">
-            <img src={gridIcon} alt="grid" />
+            {darkTheme ? <img src={gridDarkIcon} alt="grid" /> : <img src={gridIcon} alt="grid" />}
           </div>
         </div>
         <div className="table-header">

@@ -13,7 +13,7 @@
   /* transition-duration: 0.3s; */
   /* overflow: hidden; */
  
-  transition: transform 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
   position: fixed;
   left: 0;
   top: 0;
@@ -282,6 +282,7 @@
 .logout-btn h3{
   margin: 0;
   margin-left: 1rem;
+  font-size: 1.3rem;
 }
 
 .logout-section{
@@ -290,6 +291,27 @@
   border-top: 2px solid #c4c4c4;
   padding: 2rem;
 }
+
+.leftContainer.dark-theme{
+  background: #0d0d0d;
+}
+
+.leftContainer.dark-theme .leftPane{
+  background: #0d0d0d;
+}
+
+.leftContainer.dark-theme .leftPane_buttons{
+  color: #fff;
+}
+
+.leftContainer.dark-theme .leftPane_buttons_button h6{
+  color: #fff;
+}
+
+.leftContainer.dark-theme .logout-btn h3{
+  color: #fff;
+}
+
 
 @media (min-width:768px) {
   .close-toggle-btn{

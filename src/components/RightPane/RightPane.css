@@ -85,6 +85,7 @@
 }
 
 .storage_detail_header{
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -95,8 +96,9 @@
 }
 
 .storage_detail_header h3 {
+  font-size: 1rem;
   color: #acacac;
-  margin-top: .3rem;
+  
 }
 
 
@@ -113,22 +115,21 @@
   opacity: 0.8;
   z-index: 2;
   position: relative;
-  top: -140px;
+  top: -130px;
   left: 1%;
 }
 .storage_detail_desc {
-  position: relative;
-  top: -50px;
-  left: 1.5%;
+
   z-index: 2;
-  position: relative;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   opacity: 0.8;
+  position: relative;
+  bottom: 25px;
 }
 
 .storage_button {
-
+  width: 100%;
   background: #000;
   border: none;
   outline: none;
@@ -137,10 +138,11 @@
   font-size: 1.2rem;
   font-weight: light;
   border-radius: 10px;
-  padding: 1.2rem 1rem;
   cursor: pointer;
   text-transform: none;
   margin: 0;
+  padding: 1.2rem 1rem;
+  transition: all 0.3s ease;
 
 }
 
@@ -160,8 +162,9 @@
 
 
 .storage_button:hover {
-  background-color: #05e395;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
+  outline: 1px solid #000;
 }
 
 .storage_button:focus {
@@ -330,9 +333,12 @@
   font-size: 14px;
   color: #acacac;
   margin-top: .2rem;
+  height: auto;
+  font-weight: bold;
 }
 
 .file_detail_size{
+  height: auto;
   color: #000;
 }
 
@@ -343,4 +349,46 @@
   box-sizing: border-box;
   box-shadow: 0px 100px 80px rgba(41, 72, 152, 0.05), 0px 64.8148px 46.8519px rgba(41, 72, 152, 0.037963), 0px 38.5185px 25.4815px rgba(41, 72, 152, 0.0303704), 0px 20px 13px rgba(41, 72, 152, 0.025), 0px 8.14815px 6.51852px rgba(41, 72, 152, 0.0196296), 0px 1.85185px 3.14815px rgba(41, 72, 152, 0.012037);
   border-radius: 10px;
+}
+
+
+
+.second_circle, .first_circle{
+  transform: translate3d(5rem, 5rem, 0);
+  
+  
+}
+
+.chart_svg{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.storage_chart{
+
+  position: relative;
+}
+
+.storage_chart_details{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-70%, -50%, 0);
+  
+}
+
+.storage_chart_details h2,
+.storage_chart_details p{
+  margin: 0;
+
+}
+
+.storage_detail{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
