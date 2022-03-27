@@ -14,6 +14,11 @@ import moonIcon from '../assets/img/moon.svg'
 import sunIcon from "../assets/img/sun.svg"
 import gridIcon from "../assets/img/grid.svg"
 import gridDarkIcon from "../assets/img/griddark.svg"
+import CustomizedMenus from "../components/Sidebar/AddBtn/CustomizedMenus";
+import { addEntry, deleteEntry, setEntry } from "../actions/fileSystem";
+import { connect } from "react-redux";
+import { generateTreeFromList } from "../utils/fileSystem";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,13 +28,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 })); 
-const ViewFiles = () => {
+const ViewFiles = (props) => {
 
   
   const darkTheme = useTheme();
   const toggleTheme = useThemeUpdate();
   const toggleMenu = useMenuToggle()
   const classes = useStyles();
+  const [sideDrawerToggle, setSideDrawerToggle] = useState(true);
+
+  console.log("viewfiles props...", props)
 
 
 
@@ -48,6 +56,21 @@ const ViewFiles = () => {
             <img src={sunIcon} alt="light" />
           </div>
         </div>
+      </div>
+      <div className="min_upload_section">
+            <CustomizedMenus
+              btnSize="long"
+              addEntry={(value) => {
+                console.log(value);
+                props.addEntry({
+                  ...value,
+                });
+              }}
+              setEntry={(val) => props.setEntry(val)}
+              currentpath={props.match.url}
+              onEnterProgress={() => setSideDrawerToggle(false)}
+              
+            />
       </div>
       <div className="middlePane_cards" style = {{background: `${darkTheme ? "#121212" : "#fff"}` }} >
         <div className="midPane-header">
@@ -72,4 +95,17 @@ const ViewFiles = () => {
   );
 };
 
-export default ViewFiles;
+
+const mapStateToProps = (state, ownProps) => {
+  const fileStructure = generateTreeFromList(state.fileSystem);
+
+  // const path = ownProps.match.url;
+  return {
+    fileStructure,
+  };
+};
+
+
+export default connect(mapStateToProps, { addEntry, deleteEntry, setEntry })(
+  ViewFiles
+);

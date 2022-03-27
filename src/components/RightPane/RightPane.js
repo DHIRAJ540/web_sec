@@ -26,6 +26,9 @@ import {useTheme} from "../../contexts/themeContext"
 import imgIcon from "../../assets/img/image.svg"
 import otherIcon from "../../assets/img/other.svg"
 import documentIcon from "../../assets/img/document.svg"
+import imgDarkIcon from "../../assets/img/imagedark.svg"
+import otherDarkIcon from "../../assets/img/otherdark.svg"
+import documentDarkIcon from "../../assets/img/documentdark.svg"
 
 
 const chartOptions = {
@@ -370,11 +373,11 @@ const RightPane = (props) => {
         </button>
         <p>Upgrade your plan and get 50Gb</p>
       </div>
-      <div className="file_details_section">
+      <div className={`file_details_section ${darkTheme ? "dark" : ""}`}>
           <div className="file_detail">
             <div className="file_detail_name">
-              <div className="file_icon">
-              <img src={documentIcon} alt="documents" />
+              <div className={`file_icon ${darkTheme ? "dark" : ""}`}>
+              {darkTheme ? <img src={documentDarkIcon} alt="documents" /> : <img src={documentIcon} alt="documents" />}
               </div>
               <div className="file_details" style={{marginLeft:"1.4rem"}} >
                 <h4>Documents</h4>
@@ -387,8 +390,8 @@ const RightPane = (props) => {
           </div>
           <div className="file_detail">
             <div className="file_detail_name">
-              <div className="file_icon">
-              <img src={imgIcon} alt="documents" />
+              <div className={`file_icon ${darkTheme ? "dark" : ""}`}>
+              {darkTheme ? <img src={imgDarkIcon} alt="documents" /> : <img src={imgIcon} alt="documents" />}
               </div>
               <div className="file_details">
                 <h4>Images</h4>
@@ -401,8 +404,8 @@ const RightPane = (props) => {
           </div>          
           <div className="file_detail">
             <div className="file_detail_name">
-              <div className="file_icon">
-              <img src={otherIcon} alt="documents" />
+              <div className={`file_icon ${darkTheme ? "dark" : ""}`}>
+              {darkTheme ? <img src={otherDarkIcon} alt="documents" /> : <img src={otherIcon} alt="documents" />}
               </div>
               <div className="file_details">
                 <h4>Other files</h4>

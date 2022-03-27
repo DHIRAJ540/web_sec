@@ -1,3 +1,4 @@
 import ViewFiles from './ViewFiles';
+import Shared from './Shared';
 
-export { ViewFiles };
+export { ViewFiles, Shared };

@@ -29,13 +29,14 @@ import GridContainer from "./components/Grid/GridContainer.js";
 // import './assets/styles/App.scss';
 import styles from "./assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import reducers from "./reducers";
-import { ViewFiles } from "./pages";
+import { ViewFiles, Shared } from "./pages";
+
 import RightPane from "./components/RightPane/RightPane";
 import generatedummyFileSystem from "./utils/dummyFileSystem";
 import Axios from "axios";
 import CheckOnline from "./components/CheckOnline/CheckOnline";
 
-import {ThemeProvider} from "./contexts/themeContext"
+import {ThemeProvider, useTheme} from "./contexts/themeContext"
 
 const useStyles = makeStyles(styles);
 const rootEl = document.getElementById("root");
@@ -63,6 +64,8 @@ function App() {
   const [a, seta] = useState(0);
   const [b, setb] = useState(0);
   const [online, setOnline] = useState(true);
+  const darkTheme = useTheme()
+  
   // const [chosenFile, setChosenFile] = useState(false);
   // const [chosenFolder, setChosenFolder] = useState(false);
   // const [chosenType, setChosenType] = useState({
@@ -174,10 +177,8 @@ function App() {
             
 
               <Switch>
-                <Route path = "/forgot" exact = {true}>
-                {online ? "" : <CheckOnline click={handleOnlineClick} />}
-                  <Forgot/>
-                  </Route>
+               
+                
                 <Route path="/login" exact={true}>
                   {online ? "" : <CheckOnline click={handleOnlineClick} />}
                   <LoginForm
@@ -187,12 +188,29 @@ function App() {
                     setB={(val) => setb(val)}
                   />
                 </Route>
-                
-                <PrivateRoute path="/">
-                  <div className="Dashboard">
+                <PrivateRoute path="/shared" exact = {true} >
+                  
+                    {/* {online ? "" : <CheckOnline click={handleOnlineClick} />}
+                    <Route path="*" component={Sidebar} /> */}
+                    
+
+                    <Shared/>
+                    {/* <RightPane
+                      a={a}
+                      b={b}
+                      title={title}
+                      setA={(val) => seta(val)}
+                      setB={(val) => setb(val)}
+                    /> */}
+                  
+                </PrivateRoute>                
+                <PrivateRoute path="/" exact = {true}>
+                  <div className={`Dashboard ${darkTheme ? "dark" : ""}`}>
                     {online ? "" : <CheckOnline click={handleOnlineClick} />}
                     <Route path="*" component={Sidebar} />
-                    <ViewFiles />
+                    <Route path="*" component={ViewFiles} /> 
+
+                    
                     <RightPane
                       a={a}
                       b={b}
