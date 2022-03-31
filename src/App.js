@@ -29,14 +29,14 @@ import GridContainer from "./components/Grid/GridContainer.js";
 // import './assets/styles/App.scss';
 import styles from "./assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import reducers from "./reducers";
-import { ViewFiles, Shared } from "./pages";
+import { ViewFiles,RecycleBinViewFiles, SharedViewFiles, SettingsViewFiles, RequestViewFiles,  Shared } from "./pages";
 
 import RightPane from "./components/RightPane/RightPane";
 import generatedummyFileSystem from "./utils/dummyFileSystem";
 import Axios from "axios";
 import CheckOnline from "./components/CheckOnline/CheckOnline";
 
-import {ThemeProvider, useTheme} from "./contexts/themeContext"
+import { ThemeProvider, useTheme } from "./contexts/themeContext";
 
 const useStyles = makeStyles(styles);
 const rootEl = document.getElementById("root");
@@ -64,36 +64,20 @@ function App() {
   const [a, seta] = useState(0);
   const [b, setb] = useState(0);
   const [online, setOnline] = useState(true);
-  const darkTheme = useTheme()
-  
-  // const [chosenFile, setChosenFile] = useState(false);
-  // const [chosenFolder, setChosenFolder] = useState(false);
-  // const [chosenType, setChosenType] = useState({
-  //   fileTypeChosen: "none",
-  //   chooseOpen: false,
-  // });
-  // const chooseClick = (typeChosen) => {
-  //   // console.log(typeChosen);
-  //   if (typeChosen === "none") {
-  //     setChosenType({ fileTypeChosen: typeChosen, chooseOpen: false });
-  //   } else {
-  //     setChosenType({ fileTypeChosen: typeChosen, chooseOpen: true });
-  //   }
-  //   // if (typeChosen === "File") {
-  //   //   setChosenFile(true);
-  //   // }
-  //   // else if(typeChosen==="Folder"){
-  //   //   setChosenFolder(true);
-  //   // }
-  // };
-  useEffect(() => {
+  const darkTheme = useTheme();
 
-    localStorage.setItem("theme", "light")
+  const [currentView, setCurrentView] = useState("home");
+
+
+  function handleViewChange(viewName) {
+    setCurrentView(viewName);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("theme", "light");
 
     Axios(
-      `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem(
-        "ping"
-      )}`,
+      `http://14.102.108.122:3000/getdata?ping=${localStorage.getItem("ping")}`,
       {
         method: "POST",
         headers: {
@@ -143,9 +127,7 @@ function App() {
   const checkOnce = setInterval(() => {
     if (online) {
       Axios.get("https://randomfox.ca/floof/")
-        .then((response) => {
-          
-        })
+        .then((response) => {})
         .catch((error) => {
           setOnline(false);
           clearInterval(checkOnce);
@@ -170,31 +152,25 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider>
-      <Router>
-        <HashRouter>
-          <Fragment>
-            <div className="App">
-            
-
-              <Switch>
-               
-                
-                <Route path="/login" exact={true}>
-                  {online ? "" : <CheckOnline click={handleOnlineClick} />}
-                  <LoginForm
-                    showError={updateErrorMessage}
-                    updateTitle={updateTitle}
-                    setA={(val) => seta(val)}
-                    setB={(val) => setb(val)}
-                  />
-                </Route>
-                <PrivateRoute path="/shared" exact = {true} >
-                  
+        <Router>
+          <HashRouter>
+            <Fragment>
+              <div className="App">
+                <Switch>
+                  <Route path="/login" exact={true}>
+                    {online ? "" : <CheckOnline click={handleOnlineClick} />}
+                    <LoginForm
+                      showError={updateErrorMessage}
+                      updateTitle={updateTitle}
+                      setA={(val) => seta(val)}
+                      setB={(val) => setb(val)}
+                    />
+                  </Route>
+                  <PrivateRoute path="/shared" exact={true}>
                     {/* {online ? "" : <CheckOnline click={handleOnlineClick} />}
                     <Route path="*" component={Sidebar} /> */}
-                    
 
-                    <Shared/>
+                    <Shared />
                     {/* <RightPane
                       a={a}
                       b={b}
@@ -202,33 +178,43 @@ function App() {
                       setA={(val) => seta(val)}
                       setB={(val) => setb(val)}
                     /> */}
-                  
-                </PrivateRoute>                
-                <PrivateRoute path="/" exact = {true}>
-                  <div className={`Dashboard ${darkTheme ? "dark" : ""}`}>
-                    {online ? "" : <CheckOnline click={handleOnlineClick} />}
-                    <Route path="*" component={Sidebar} />
-                    <Route path="*" component={ViewFiles} /> 
+                  </PrivateRoute>
+                  <PrivateRoute path="/" exact={true}>
+                    <div className={`Dashboard ${darkTheme ? "dark" : ""}`}>
+                      {online ? "" : <CheckOnline click={handleOnlineClick} />}
+                      <Route
+                        path="*"
+                        render={(props) => (
+                          <Sidebar
+                            handleViewChange={handleViewChange}
+                            {...props}
+                          />
+                        )}
+                      />
 
-                    
-                    <RightPane
-                      a={a}
-                      b={b}
-                      title={title}
-                      setA={(val) => seta(val)}
-                      setB={(val) => setb(val)}
-                    />
-                  </div>
-                </PrivateRoute>
-              </Switch>
-              <AlertComponent
-                errorMessage={errorMessage}
-                hideError={updateErrorMessage}
-              />
-            </div>
-          </Fragment>
-        </HashRouter>
-      </Router>
+                      {currentView === "home" && <ViewFiles />}
+                      {currentView === "recycleBin" && <RecycleBinViewFiles />}
+                      {currentView === "sharedFiles" && <SharedViewFiles />}
+                      {currentView === "fileRequest" && <RequestViewFiles />}
+                      {currentView === "settings" && <SettingsViewFiles />}
+                      <RightPane
+                        a={a}
+                        b={b}
+                        title={title}
+                        setA={(val) => seta(val)}
+                        setB={(val) => setb(val)}
+                      />
+                    </div>
+                  </PrivateRoute>
+                </Switch>
+                <AlertComponent
+                  errorMessage={errorMessage}
+                  hideError={updateErrorMessage}
+                />
+              </div>
+            </Fragment>
+          </HashRouter>
+        </Router>
       </ThemeProvider>
     </Provider>
   );

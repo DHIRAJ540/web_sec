@@ -60,7 +60,6 @@ const useFileRequestStyles = makeStyles((theme) => ({
 }));
 
 const Sidebar = ({ fileStructure, ...props }) => {
-  console.log("AAAAAAAAAAAAAAAAAAAA-->", props);
   let children = fileStructure[0].children;
   const [toggle, handleToggle] = useState(true);
   const [sideDrawerToggle, setSideDrawerToggle] = useState(true);
@@ -79,8 +78,11 @@ const Sidebar = ({ fileStructure, ...props }) => {
 
   function handleLogout() {
     localStorage.clear();
-
     props.history.push("/login");
+  }
+
+  function handleClick(event) {
+    props.handleViewChange(event);
   }
 
   return (
@@ -118,6 +120,8 @@ const Sidebar = ({ fileStructure, ...props }) => {
               className="leftPane_buttons_button"
               onMouseEnter={() => setHome(false)}
               onMouseLeave={() => setHome(true)}
+              onClick={() => handleClick("home")}
+
               
             >
               <Link to="/" className="home_link"  >
@@ -125,14 +129,12 @@ const Sidebar = ({ fileStructure, ...props }) => {
                 <h6>Home</h6>
               </Link>
             </div>
-            {/* <div className="leftPane_folders">
-              <SideMenu fileStructure={children} />
-            </div> */}
 
             <div
               className="leftPane_buttons_button"
               onMouseEnter={() => setSharedFiles(false)}
               onMouseLeave={() => setSharedFiles(true)}
+              onClick={() => handleClick("sharedFiles")}
             >
               {!darkTheme ? <img src={shareIcon} alt="" /> : <img src={shareDarkIcon} alt="" />}
               <h6>Shared</h6>
@@ -142,7 +144,8 @@ const Sidebar = ({ fileStructure, ...props }) => {
               className="leftPane_buttons_button"
               onMouseEnter={() => setFileRequest(false)}
               onMouseLeave={() => setFileRequest(true)}
-              onClick={() => setHandleFileRequest(true)}
+              onClick={() => handleClick("fileRequest")}
+              
             >
               {!darkTheme ? <img src={fileIcon} alt="" /> : <img src={fileDarkIcon} alt="" />}
               <h6>File request</h6>
@@ -152,6 +155,8 @@ const Sidebar = ({ fileStructure, ...props }) => {
               className="leftPane_buttons_button"
               onMouseEnter={() => setRecycleBin(false)}
               onMouseLeave={() => setRecycleBin(true)}
+              onClick={() => handleClick("recycleBin")}
+
             >
               {!darkTheme ? <img src={binIcon} alt="" /> : <img src={binDarkIcon} alt="" />}
               <h6>Recycle bin</h6>
@@ -161,6 +166,8 @@ const Sidebar = ({ fileStructure, ...props }) => {
               className="leftPane_buttons_button"
               onMouseEnter={() => setRecycleBin(false)}
               onMouseLeave={() => setRecycleBin(true)}
+              onClick={() => handleClick("settings")}
+
             >
               {!darkTheme ? <img src={settingsIcon} alt="" /> : <img src={settingsDarkIcon} alt="" />}
               <h6>Preferences</h6>

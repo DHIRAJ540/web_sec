@@ -42,3 +42,14 @@
   background-color: #121212;
 }
 
+.show_empty_section p{
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #999999;
+}
+

@@ -15,18 +15,47 @@
   transition: all 300ms ease-in-out;
 }
 
+.empty_files_shared p {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  margin:1rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  /* sarvvidgrey */
+
+  color: #999999;
+}
+
+.empty_files_shared_btn {
+  width: 30%;
+  background: #000;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  font-weight: normal;
+  font-family: "Poppins";
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: none;
+  margin: 0;
+  padding: 1.2rem 1rem;
+  transition: all 0.3s ease;
+}
 
 .middlePane_searchBar {
-  
   width: 90%;
   transition: all 300ms ease-in-out;
-
 }
 
-.middlePane_searchBar.dark-theme .searchBar_text{
+.middlePane_searchBar.dark-theme .searchBar_text {
   background: #0d0d0d;
 }
-
 
 .middlePane_upper {
   margin-top: 2rem;
@@ -46,17 +75,13 @@
   outline: none;
   border: none;
   background-color: #fff;
-  padding: .4rem .5rem;
+  padding: 0.4rem 0.5rem;
   padding-left: 2rem;
   transition: all 300ms ease-in-out;
 }
 
-.searchBar_text.opened{
+.searchBar_text.opened {
   padding-left: 1.5rem;
-}
-
-.searchBar_text.dark{
-  color: #fff;
 }
 
 .middlePane_cards {
@@ -74,7 +99,21 @@
   /* margin-bottom: 1%; */
   /* border: 1px solid red; */
 }
+.middlePane_cards_shared {
+  /* height: 30%; */
+  margin-top: 4%;
+  transition: all 300ms ease;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 10px 60px rgba(226, 236, 249, 0.5);
+  border-radius: 30px;
+  height: 60vh;
 
+  padding: 2rem;
+  transition: all 300ms ease-in-out;
+
+  /* margin-bottom: 1%; */
+  /* border: 1px solid red; */
+}
 
 .recent_heading {
   padding-right: 2%;
@@ -103,41 +142,37 @@
   box-shadow: 0 0 20px rgb(0, 195, 255);
 }
 
-
-.close_button{
-  
+.close_button {
   display: none;
   opacity: 0;
   cursor: pointer;
-  transition: all 0.3s ease-out ;
+  transition: all 0.3s ease-out;
 }
 
-.close_button.active_close{
+.close_button.active_close {
   display: block;
   opacity: 1;
 }
 
 /* Theme button */
 
-.theme-toggle{
-
+.theme-toggle {
   height: 24px;
   overflow: hidden;
-
 }
 
-.theme-btn{
+.theme-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: all 300ms ease-in-out;
 }
 
-.theme-toggle.dark .theme-btn{
+.theme-toggle.dark .theme-btn {
   transform: translateY(-24px);
 }
 
-.midPane-header{
+.midPane-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -173,7 +208,6 @@
   justify-content: flex-end;
 }
 
-
 .table-header {
   width: 100%;
   display: flex;
@@ -188,112 +222,37 @@
   margin-left: 1rem;
 }
 
-.table-header p:nth-child(1){
+.table-header p:nth-child(1) {
   flex: 0.7;
 }
 
-.table-header p:nth-child(2){
+.table-header p:nth-child(2) {
   flex: 0.15;
 }
 
-.table-header p:nth-child(3){
+.table-header p:nth-child(3) {
   flex: 0.15;
 }
 
-.middlePane.dark-theme{
+.middlePane.dark-theme {
   background: #121212;
 }
 
-.middlePane.dark-theme .navigation-container h2{
+.middlePane.dark-theme .navigation-container h2 {
   color: #fff;
 }
 
-.middlePane.dark-theme .middlePane_cards{
+.middlePane.dark-theme .middlePane_cards {
   box-shadow: 0px 10px 60px rgba(1, 36, 158, 0.5);
 }
 
-.dropzone_header {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  text-align: center;
-  letter-spacing: -0.01em;
-
-  /* sarvvidgrey */
-
-  color: #999999;
-}
-.dropzone_p {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 15px;
-  text-align: center;
-  letter-spacing: -0.01em;
-
-  /* sarvvidgrey */
-
-  color: #999999;
-}
-
-
 /* meida */
 
-@media (min-width:1000px) {
-  .middlePane{
+@media (min-width: 768px) {
+  .middlePane {
     padding-left: 344px;
     padding-top: 30px;
     padding-bottom: 55px;
     padding-right: 39px;
-    
   }
-
-  .min_upload_section{
-    display: none;
-  }
-}
-
-@media(max-width:1000px){
-  .middlePane{
-    width: 100%;
-    padding: 0 1rem;
-  }
-
-  .theme-toggle{
-    display: none;
-  }
-
-  .middlePane_searchBar{
-    width: 100%;
-  }
-
-  .midPane-header{
-    width: 100%;
-  }
-  .midPane-header h2{
-    font-size: 1.2rem;
-  }
-
-  .middlePane_cards{
-    padding: .7rem;
-    border-radius: 10px;
-  }
-
-  .table-header p:nth-child(2){
-    flex: 0.15;
-    text-align: right;
-  }
-  
-  .table-header p:nth-child(3){
-    flex: 0.15;
-    text-align: right;
-  }
-
-  .min_upload_section{
-    margin: 1rem 0;
-  }
-
 }
